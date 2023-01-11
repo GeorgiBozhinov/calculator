@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<th:block th:include="~{_shared/head}"/>
+<body class="d-flex flex-column h-100">
+<th:block th:include="~{_shared/header}"/>
+<div class="container mt-1 mb-1 ms-1 me-1 border border-secondary border-2 rounded bg-secondary text-white add-ing con-width">
+    <div class="col">
+        <p>Успешно добавихте нов компонент: </p>
+        <div class="col" th:text="'Име на компонент: ' + ${ingredientAddedModel.ingredientName}"></div>
+        <div class="col" th:text="'Тип компонент: ' + ${ingredientAddedModel.ingredientType}"></div>
+        <div class="col" th:text="'Количество: '+ ${ingredientAddedModel.quantity}"></div>
+        <div class="col" th:text="'Размер: ' + ${ingredientAddedModel.size}"></div>
+        <div class="col" th:text="'Мерна единица: ' + ${ingredientAddedModel.unitName}"></div>
+        <div class="col" th:text="'Цена: '+ ${ingredientAddedModel.price} + ' лв.'"></div>
+    </div>
+    <a class="nav-link a-link" th:href="@{/ingredient/add}">Добави нов компонент</a>
+</div>
+<th:block th:include="~{_shared/footer}"/>
+</body>
+<th:block th:include="~{_shared/scripts/main_scripts}"/>
+</html>

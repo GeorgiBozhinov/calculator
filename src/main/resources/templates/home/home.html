@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<th:block th:include="~{_shared/head}"/>
+<body>
+<th:block th:include="~{_shared/header}"/>
+<main>
+    <div class="container mt-3">
+        <div class="row align-items-center" id="row-index">
+            <!--            <div class="col mb-5" style="text-align: center; " th:each="product : ${products}">-->
+            <div class="col" th:each="product : ${products}">
+                <a rel="group">
+                    <!--                    <img th:src="@{${product.imageName}}" class="img-responsive caixa-img-produto" style="width: 80%;" alt=""/>-->
+                    <img th:src="@{${product.imageName}}" class="rounded mx-auto d-block img-st mb-1"  alt=""/>
+                </a>
+                <p style="white-space: nowrap;text-align: center; margin-bottom: 10px;" th:text="${product.candleName} + ' - ' + ${product.price} + ' лв.'"></p>
+                <div class="row row-cols-1 hidden box-info" style="text-align: center;">
+                    <div th:text="'Восък: ' + ${product.waxType}"></div>
+                    <div th:text="'Контейнер: ' + ${product.candleJar}"></div>
+                    <div th:text="'Количество восък: ' + ${product.waxQuantity} + ' гр'"></div>
+                    <div th:text="'Аромат: ' + ${product.scentType}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+<th:block th:include="~{_shared/scripts/main_scripts}"/>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<th:block th:include="~{_shared/head}"/>
+<body class="d-flex flex-column h-100">
+<th:block th:include="~{_shared/header}"/>
+<div class="container mt-1 mb-1 ms-1 me-1 border border-secondary border-2 rounded backg-color text-white con-width">
+    <form th:action="@{/ingredient/add}" method="POST" th:object="${ingredientModel}">
+        <div class="col mb-2">
+
+            <div class="col">
+                <label class="form-label" for="ingredientName">Име на компонент</label>
+                <input type="text" class="form-control" id="ingredientName"
+                       th:field="*{ingredientName}"
+                       pattern="([А-Яа-яA-Za-z0-9\-\_]+)"
+                       th:errorclass="is-invalid"
+                       title="Името на продукта може да съдържа кирилица и латински букви."
+                       required>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="ingredientType">Тип компонент</label>
+                <select id="ingredientType"
+                        th:field="*{ingredientType}"
+                        th:errorclass="is-invalid"
+                        class="form-control"
+                        required>
+                    <option value="">- Избери компонент-</option>
+                    <option
+                            th:each="component : ${components}"
+                            th:text="${component.componentName}"
+                            th:value="${component.componentNameEn}">
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="quantity">Количество</label>
+                <input type="number" class="form-control" id="quantity"
+                       th:field="*{quantity}"
+                       th:errorclass="is-invalid"
+                       pattern="[0-9]"
+                       title="Полето може да съдържа единствено цифри.">
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="size">Размер</label>
+                <input type="number" class="form-control" id="size"
+                       th:field="*{size}"
+                       th:errorclass="is-invalid"
+                       pattern="[0-9]"
+                       title="Полето може да съдържа единствено цифри.">
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="unitName">Мерна единица</label>
+                <select id="unitName"
+                        th:field="*{unitName}"
+                        th:errorclass="is-invalid"
+                        class="form-control"
+                        required>
+                    <option value="">- Избери мерна единица -</option>
+                    <option
+                            th:each="un : ${units}"
+                            th:text="${un.unitName}"
+                            th:value="${un.unitName}">
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="price">Цена</label>
+                <input type="number" step="any" class="form-control" id="price"
+                       th:field="*{price}"
+                       th:errorclass="is-invalid"
+                       pattern="[0-9]+([\.,][0-9]+)?|[0-9]"
+                       title="Полето може да съдържа единствено цифри."
+                       required>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col" th:if="${#fields.hasErrors('global')}">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"/>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="reset" class="btn btn-info mb-2 me-2">Изчисти</button>
+            <button type="submit" class="btn btn-success mb-2 me-2">Изпрати</button>
+        </div>
+    </form>
+</div>
+<th:block th:include="~{_shared/footer}"/>
+</body>
+<th:block th:include="~{_shared/scripts/main_scripts}"/>
+<th:block th:include="~{_shared/scripts/scripts_add_ing}"/>
+</html>

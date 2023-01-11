@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<th:block th:include="~{_shared/head}"/>
+<body class="d-flex flex-column h-100">
+<th:block th:include="~{_shared/header}"/>
+<div class="container mt-1 mb-1 ms-1 me-1 border border-secondary border-2 rounded bg-secondary text-white add-ing con-width">
+    <div class="col">
+        <p>Успешно добавихте нов продукт: </p>
+        <div class="col" th:text="'Име на продукт: ' + ${productModelAdded.candleName}"></div>
+        <div class="col" th:text="'Тип восък: ' + ${productModelAdded.waxType}"></div>
+        <div class="col" th:text="'Тип контейнер: ' + ${productModelAdded.candleJar}"></div>
+        <div class="col" th:text="'Количество восък: ' + ${productModelAdded.waxQuantity}"></div>
+        <div class="col" th:text="'Тип фитил: ' + ${productModelAdded.candleWick}"></div>
+        <div class="col" th:text="'Количество фитил: ' + ${productModelAdded.wickSize} + ' см'"></div>
+        <div class="col" th:text="'Тип аромат: ' + ${productModelAdded.scentType}"></div>
+        <div class="col" th:text="'Количество аромат: ' + ${productModelAdded.scentQuantity}"></div>
+    </div>
+    <a class="nav-link a-link" th:href="@{/product/add}">Добави now продукт</a>
+</div>
+<th:block th:include="~{_shared/footer}"/>
+</body>
+<th:block th:include="~{_shared/scripts/main_scripts}"/>
+</html>

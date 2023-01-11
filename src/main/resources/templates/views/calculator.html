@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<th:block th:include="~{_shared/head}"/>
+<body class="d-flex flex-column h-100">
+<th:block th:include="~{_shared/header}"/>
+<div class="container mt-1 mb-1 border border-secondary border-2 rounded backg-color text-white con-width">
+    <form th:action="@{/calc}" method="POST" th:object="${calculatorModel}">
+        <div class="col mb-2">
+            <div class="col">
+                <label class="form-label" for="waxType">Тип восък</label>
+                <select
+                        th:field="*{waxType}"
+                        th:errorclass="is-invalid"
+                        id="waxType"
+                        name="waxType"
+                        class="form-control"
+                        required>
+                    <option value="">- Избери восък -</option>
+                    <option
+                            th:each="wax : ${waxes}"
+                            th:text="${wax}"
+                            th:value="${wax}">
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="jarOwner">Предоставен(контейнер)</label>
+                <select
+                        th:field="*{jarOwner}"
+                        th:errorclass="is-invalid"
+                        id="jarOwner"
+                        name="jarOwner"
+                        class="form-control" required>
+                    <option value="">- Избери собтсвеник -</option>
+                    <option value="seller">Продавач</option>
+                    <option value="customer">Купувач</option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col hidden">
+                <label class="form-label" for="candleJar">Тип контейнер</label>
+                <select
+                        th:field="*{candleJar}"
+                        th:errorclass="is-invalid"
+                        id="candleJar"
+                        name="candleJar"
+                        class="form-control" required>
+                    <option value="">- Избери контейнер -</option>
+                    <option
+                            th:each="jar : ${jars}"
+                            th:text="${jar}"
+                            th:value="${jar}">
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="waxQuantity">Количество восък</label>
+                <input
+                        th:field="*{waxQuantity}"
+                        th:errorclass="is-invalid"
+                        type="number"
+                        class="form-control"
+                        id="waxQuantity"
+                        name="waxQuantity"
+                        pattern="[0-9]"
+                        title="Полето може да съдържа единствено цифри."
+                        required>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="candleWick">Фитил</label>
+                <select
+                        th:field="*{candleWick}"
+                        th:errorclass="is-invalid"
+                        id="candleWick"
+                        name="candleWick"
+                        class="form-control" required>
+                    <option value="">- Избери фитил -</option>
+                    <option
+                            th:each="wick : ${wicks}"
+                            th:text="${wick}"
+                            th:value="${wick}">
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="wickSize">Количество фитил</label>
+                <input
+                        th:field="*{wickSize}"
+                        th:errorclass="is-invalid"
+                        type="number"
+                        class="form-control"
+                        id="wickSize"
+                        name="wickSize"
+                        pattern="[0-9]"
+                        title="Полето може да съдържа единствено цифри."
+                        required>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="scentType">Тип аромат</label>
+                <select
+                        th:field="*{scentType}"
+                        th:errorclass="is-invalid"
+                        id="scentType"
+                        name="scentType"
+                        class="form-control" required>
+                    <option value="">- Избери аромат -</option>
+                    <option
+                            th:each="scent : ${scents}"
+                            th:text="${scent}"
+                            th:value="${scent}">
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="scentQuantity">Количество аромат</label>
+                <input
+                        th:field="*{scentQuantity}"
+                        th:errorclass="is-invalid"
+                        type="number"
+                        class="form-control"
+                        id="scentQuantity"
+                        name="scentQuantity"
+                        pattern="[0-9]"
+                        title="Полето може да съдържа единствено цифри."
+                        required>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="otherIng">Други</label>
+                <select th:field="*{additionalIngredients}"
+                        id="otherIng"
+                        name="scentType"
+                        class="form-select" multiple="multiple">
+                    <option value="">- Избери други -</option>
+                    <option
+                            th:each="other : ${others}"
+                            th:text="${other}"
+                            th:value="${other}">
+                    </option>
+                </select>
+<!--                <p class="invalid-feedback errors alert alert-danger">-->
+<!--                    Полето е празно.-->
+<!--                </p>-->
+            </div>
+            <!--            Use below container to display the calculated price of the entered components.-->
+            <div class="col" th:if="${#fields.hasErrors('global')}">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="info"/>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="resBut" type="reset" class="btn btn-success mb-2 me-2">Изчисти</button>
+            <button id="subAddProd" type="submit" class="btn btn-success mb-2 me-2">Изчисли</button>
+        </div>
+    </form>
+
+</div>
+<th:block th:include="~{_shared/footer}"/>
+</body>
+<th:block th:include="~{_shared/scripts/main_scripts}"/>
+<th:block th:include="~{_shared/scripts/script_calc}"/>
+</html>
