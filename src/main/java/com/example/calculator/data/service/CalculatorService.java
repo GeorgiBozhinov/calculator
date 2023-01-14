@@ -1,4 +1,5 @@
 package com.example.calculator.data.service;
+
 import com.example.calculator.data.base_entities.IngredientEntity;
 import com.example.calculator.data.model.dto.CalculatorDTO;
 import com.example.calculator.data.repository.IngredientRepository;
