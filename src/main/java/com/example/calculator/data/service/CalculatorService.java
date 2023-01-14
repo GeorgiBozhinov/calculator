@@ -30,7 +30,8 @@ public class CalculatorService {
         String scentType = calculatorDTO.getScentType();
         int scentQuantity = calculatorDTO.getScentQuantity();
 
-        IngredientEntity ingredientEntity = new IngredientEntity();
+        IngredientEntity ingredientEntity;
+
         Double finalPrice = 0.0;
 
         if(!waxType.isEmpty() && waxQuantity > 1){

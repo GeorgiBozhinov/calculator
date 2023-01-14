@@ -1,6 +1,4 @@
 package com.example.calculator.configs;
-
-
 public class StringConstants {
 
     public static String NO_JAR = "Jar type is not selected";
@@ -22,5 +20,7 @@ public class StringConstants {
     public static String PRODUCT_EXIST = "Already exist such product!";
 
     public static String INGREDIENT_EXIST = "Already exist such ingredient!";
+
+    public static String IMAGE_SIZE = "Размерът на снимката на може да бъде по голям от (3MB)";
 
 }

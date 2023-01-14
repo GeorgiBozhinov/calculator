@@ -1,24 +1,48 @@
-//package com.example.calculator.data.service;
-//
-//import com.example.calculator.data.model.dto.CalculatorDTO;
-//import com.example.calculator.data.repository.IngredientRepository;
-//import org.junit.Assert;
-//import org.junit.Test;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//
-//
-//import java.util.ArrayList;
-//
-//@ExtendWith(MockitoExtension.class)
-//public class CalculatorServiceTest {
-//
-//    @Mock
-//    IngredientRepository ingredientRepository;
-//
-//
+package com.example.calculator.data.service;
+import com.example.calculator.data.base_entities.IngredientEntity;
+import com.example.calculator.data.repository.IngredientRepository;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class CalculatorServiceTest {
+
+    @Mock
+    private IngredientRepository mockIngredientRepository;
+
+    private CalculatorService toTest;
+
+    @BeforeEach
+    void setUp() {
+
+        toTest = new CalculatorService(
+                mockIngredientRepository
+        );
+    }
+
+    @Test
+    void testLoadIngredientByIngredientNAme_IngredientExist() {
+        //arrange
+        IngredientEntity testIngEntity = new IngredientEntity();
+        testIngEntity.setIngredientName("тест");
+        testIngEntity.setIngredientType("тест");
+        testIngEntity.setQuantity(1);
+        testIngEntity.setSize(0);
+        testIngEntity.setUnitName("тест");
+        testIngEntity.setPrice(20.0);
+
+        //act
+        when(mockIngredientRepository.findByIngredientName(testIngEntity.getIngredientName())).thenReturn(testIngEntity);
+
+        //assert
+        //CalculatorService calculatorService = toTest.
+    }
+
 //    @Test
 //    public void checkIfTheReturnVariableTypeOFCalcPriceIsDouble() {
 //        //Mockito.mock(CalculatorService.class);
@@ -65,5 +89,4 @@
 //
 //       // Assert.assertEquals(expectedValue, calculatorService.calcPrice(calculatorDTO));
 //    }
-//
-//}
+}

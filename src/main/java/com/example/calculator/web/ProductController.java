@@ -3,6 +3,7 @@ import com.example.calculator.data.base_entities.ProductEntity;
 import com.example.calculator.data.model.dto.ProductDTO;
 import com.example.calculator.data.service.IngredientService;
 import com.example.calculator.data.service.ProductService;
+import com.example.calculator.data.service.imagesFolder.ImageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.calculator.configs.StringConstants.IMAGE_SIZE;
 import static com.example.calculator.configs.StringConstants.PRODUCT_EXIST;
 
 @Controller
@@ -25,39 +27,29 @@ public class ProductController {
 
     private final IngredientService ingredientService;
 
-    public ProductController(ProductService productService, IngredientService ingredientService) {
+    private final ImageService imageService;
+
+    public ProductController(ProductService productService, IngredientService ingredientService, ImageService imageService) {
+
         this.productService = productService;
         this.ingredientService = ingredientService;
+        this.imageService = imageService;
     }
 
     @ModelAttribute("productModel")
     public ProductDTO productDTO() {
+
         return new ProductDTO();
     }
-
 
     @GetMapping("/add")
     public String getAddProductPage(Model model) {
 
-        if (!model.containsAttribute("waxes")) {
-            model.addAttribute("waxes", ingredientService.findByIngredientType("wax"));
-        }
-
-        if (!model.containsAttribute("jars")) {
-            model.addAttribute("jars", ingredientService.findByIngredientType("jar"));
-        }
-
-        if (!model.containsAttribute("scents")) {
-            model.addAttribute("scents", ingredientService.findByIngredientType("scent"));
-        }
-
-        if (!model.containsAttribute("wicks")) {
-            model.addAttribute("wicks", ingredientService.findByIngredientType("wick"));
-        }
-
-        if (!model.containsAttribute("others")) {
-            model.addAttribute("others", ingredientService.findByIngredientType("others"));
-        }
+        addAttribute(model, "waxes", "wax");
+        addAttribute(model, "jars", "jar");
+        addAttribute(model, "scents", "scent");
+        addAttribute(model, "wicks", "wick");
+        addAttribute(model, "others", "others");
 
         return "views/add_product.html";
     }
@@ -70,43 +62,62 @@ public class ProductController {
         return "views/result_product.html";
     }
 
-
     @PostMapping("/add")
-    public String addProduct(@Valid ProductDTO productDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public String addProduct(@Valid ProductDTO productDTO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("productModel", productDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productModel",
-                    bindingResult);
+        imageService.changeImageBackground();
+
+        if ( bindingResult.hasErrors() ) {
+            addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);
+
+            return "redirect:/product/add";
+        }
+
+        if ( imageService.checkImageSize(multipartFile.getSize()) ) {
+            ObjectError error = new ObjectError("globalError", IMAGE_SIZE);
+            bindingResult.addError(error);
+            addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);
 
             return "redirect:/product/add";
         }
 
         List<ProductEntity> productEntityList = productService.checkIfExistSuchProduct(productDTO.getCandleName(), productDTO.getCandleJar());
 
-        if(productEntityList.isEmpty()){
+        if ( productEntityList.isEmpty() ) {
             String fileName = "/images/uploads/" + multipartFile.getOriginalFilename();
 
             productService.saveUploadedFile(multipartFile);
             productDTO.setImageName(fileName);
             productService.addProduct(productDTO);
 
-            redirectAttributes.addFlashAttribute("productModelAdded", productDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productModelAdded",
-                    bindingResult);
-
+            addFlashAttribute(redirectAttributes, "productModelAdded",  productDTO,  bindingResult);
             return "redirect:/product/succ";
         }
 
         ObjectError error = new ObjectError("globalError", PRODUCT_EXIST);
         bindingResult.addError(error);
-
-        redirectAttributes.addFlashAttribute("productModel", productDTO);
-        redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productModel",
-                    bindingResult);
+        addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);
 
         return "redirect:/product/add";
-
     }
 
+
+    private void  addAttribute(Model model, String attributeName, String ingredientType){
+        if ( !model.containsAttribute(attributeName) ) {
+            model.addAttribute(attributeName, ingredientService.findByIngredientType(ingredientType));
+        }
+    }
+
+    private void addFlashAttribute(RedirectAttributes redirectAttributes,
+                                   String attributeName,
+                                   ProductDTO productDTO,
+                                   BindingResult bindingResult){
+
+        redirectAttributes.addFlashAttribute(attributeName, productDTO);
+        redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult." + attributeName,
+                bindingResult);
+    }
 }

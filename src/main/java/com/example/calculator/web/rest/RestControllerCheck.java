@@ -21,7 +21,6 @@ public class RestControllerCheck {
     private final IngredientService ingredientService;
 
     public RestControllerCheck(ProductService productService, IngredientService ingredientService) {
-
         this.productService = productService;
         this.ingredientService = ingredientService;
     }

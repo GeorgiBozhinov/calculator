@@ -150,15 +150,17 @@
                             th:value="${other}">
                     </option>
                 </select>
-                <!--                <p class="invalid-feedback errors alert alert-danger">-->
-                <!--                    Полето е празно.-->
-                <!--                </p>-->
+                <p class="invalid-feedback errors alert alert-danger">
+                    Полето е празно.
+                </p>
             </div>
             <div class="col">
                 <label class="form-label" for="image">Снимка</label>
-                <input type="file" class="form-control" id="image" name="image" required>
+                <input type="file"  class="form-control" id="image" name="image" required>
             </div>
-
+            <div class="col" th:if="${#fields.hasErrors('global')}">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"/>
+            </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button id="resBut" type="reset" class="btn btn-success mb-2 me-2">Изчисти</button>
