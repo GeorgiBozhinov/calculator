@@ -10,14 +10,13 @@
 <main>
     <div class="container mt-3">
         <div class="row align-items-center" id="row-index">
-            <!--            <div class="col mb-5" style="text-align: center; " th:each="product : ${products}">-->
             <div class="col" th:each="product : ${products}">
                 <a rel="group">
                     <!--                    <img th:src="@{${product.imageName}}" class="img-responsive caixa-img-produto" style="width: 80%;" alt=""/>-->
-                    <img th:src="@{${product.imageName}}" class="rounded mx-auto d-block img-st mb-1"  alt=""/>
+                    <img th:src="@{${product.imageName}}" class="rounded mx-auto d-block img-st mb-1" alt=""/>
                 </a>
-                <p style="white-space: nowrap;text-align: center; margin-bottom: 10px;" th:text="${product.candleName} + ' - ' + ${product.price} + ' лв.'"></p>
-                <div class="row row-cols-1 hidden box-info" style="text-align: center;">
+                <p class="p-prod" th:text="${product.candleName} + ' - ' + ${product.price} + ' лв.'"></p>
+                <div class="row row-cols-1 box-info text-c">
                     <div th:text="'Восък: ' + ${product.waxType}"></div>
                     <div th:text="'Контейнер: ' + ${product.candleJar}"></div>
                     <div th:text="'Количество восък: ' + ${product.waxQuantity} + ' гр'"></div>
@@ -25,6 +24,53 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="container-fluid container-fluid row justify-content-center" style="margin-top: 30px;">
+        <nav style="width: auto;">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${products.isFirst()} ? 'disabled' : ''">
+                    <a th:unless="${products.isFirst()}"
+                       th:href="@{/home(size=${products.getSize()},page=0)}"
+                       class="page-link" href="#">First</a>
+                    <a th:if="${products.isFirst()}"
+                       class="page-link" href="#">First</a>
+                </li>
+            </ul>
+        </nav>
+        <nav style="width: auto;">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${products.hasPrevious() ? '' : 'disabled'}">
+                    <a th:if="${products.hasPrevious()}"
+                       th:href="@{/home(size=${products.getSize()},page=${products.getNumber() - 1})}"
+                       class="page-link" href="#">Previous</a>
+                    <a th:unless="${products.hasPrevious()}"
+                       class="page-link" href="#">Previous</a>
+                </li>
+            </ul>
+        </nav>
+        <nav style="width: auto;">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${products.hasNext() ? '' : 'disabled'}">
+                    <a th:if="${products.hasNext()}"
+                       th:href="@{/home(size=${products.getSize()},page=${products.getNumber() + 1})}"
+                       class="page-link" href="#">Next</a>
+                    <a th:unless="${products.hasNext()}"
+                       class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <nav style="width: auto;">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${products.isLast()} ? 'disabled' : ''">
+                    <a th:unless="${products.isLast()}"
+                       th:href="@{/home(size=${products.getSize()},page=${products.getTotalPages() - 1})}"
+                       class="page-link" href="#">Last</a>
+                    <a th:if="${products.isLast()}"
+                       class="page-link" href="#">Last</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </main>
 </body>

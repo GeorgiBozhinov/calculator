@@ -36,7 +36,8 @@ public class ProductDTO {
 
     private String imageName;
 
-    private List<String> additionalIngredients;
+    //private List<String> additionalIngredients;
+    private List<AdditionalIngredientsDTO> additionalIngredients;
 
     public ProductDTO() {
 
@@ -142,12 +143,12 @@ public class ProductDTO {
         this.imageName = imageName;
     }
 
-    public List<String> getAdditionalIngredients() {
+    public List<AdditionalIngredientsDTO> getAdditionalIngredients() {
 
         return additionalIngredients;
     }
 
-    public void setAdditionalIngredients(List<String> additionalIngredients) {
+    public void setAdditionalIngredients(List<AdditionalIngredientsDTO> additionalIngredients) {
 
         this.additionalIngredients = additionalIngredients;
     }

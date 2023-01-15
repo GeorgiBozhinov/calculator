@@ -5,6 +5,8 @@ import com.example.calculator.data.model.dto.ProductDTO;
 import com.example.calculator.data.repository.IngredientRepository;
 import com.example.calculator.data.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,14 +52,20 @@ public class ProductService {
         return 0;
     }
 
-    public List<ProductEntity> getAllProducts() {
-        List<ProductEntity> list = productRepository.findAll();
-        //list.forEach(l -> System.out.println("Image url: " + l.getImageName()));
+//    public List<ProductEntity> getAllProducts() {
+//        List<ProductEntity> list = productRepository.findAll();
+//        //list.forEach(l -> System.out.println("Image url: " + l.getImageName()));
+//
+//        return productRepository.findAll();
+//
+////        List<ProductEntity> allTenDollarProducts =
+////                productRepository.findAllByPrice(, secondPageWithFiveElements);
+//    }
 
-        return productRepository.findAll();
+    public Page<ProductEntity> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
 
-//        List<ProductEntity> allTenDollarProducts =
-//                productRepository.findAllByPrice(, secondPageWithFiveElements);
+
     }
 
 
@@ -111,14 +119,14 @@ public class ProductService {
 
         ingredientPrice += scentPrice/(scentQuantityDB/scentQuantity);
 
-        List<String> additionalIngredients = productDTO.getAdditionalIngredients();
+        //List<String> additionalIngredients = productDTO.getAdditionalIngredients();
 
-        if(additionalIngredients.size() >= 1){
-            for (String ingredient : additionalIngredients) {
-                ingredientEntity = ingredientRepository.findByIngredientName(ingredient);
-                ingredientPrice += ingredientEntity.getPrice();
-            }
-        }
+//        if(additionalIngredients.size() >= 1){
+//            for (String ingredient : additionalIngredients) {
+//                ingredientEntity = ingredientRepository.findByIngredientName(ingredient);
+//                ingredientPrice += ingredientEntity.getPrice();
+//            }
+//        }
 
         ingredientPrice = Math.round(ingredientPrice * 100.0) / 100.0;
 

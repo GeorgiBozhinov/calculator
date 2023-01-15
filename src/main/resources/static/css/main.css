@@ -89,6 +89,17 @@ span {
     max-width: 300px;
 }
 
+.p-prod {
+    white-space: nowrap;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.text-c {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 /*Image background*/
 .demo-bg {
     opacity: 0.6;
@@ -99,4 +110,14 @@ span {
     height: auto;
 }
 
+/*Sweet Alert style*/
+.swal2-title {
+    font-size: 20px !important;
+    margin-top: 15px !important;
+}
+
+.sel-div {
+    /*display: flex;*/
+    margin-top: 10px;
+}
 

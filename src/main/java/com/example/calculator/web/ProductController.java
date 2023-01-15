@@ -1,5 +1,6 @@
 package com.example.calculator.web;
 import com.example.calculator.data.base_entities.ProductEntity;
+import com.example.calculator.data.model.dto.AdditionalIngredientsDTO;
 import com.example.calculator.data.model.dto.ProductDTO;
 import com.example.calculator.data.service.IngredientService;
 import com.example.calculator.data.service.ProductService;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.calculator.configs.StringConstants.IMAGE_SIZE;
@@ -44,12 +46,24 @@ public class ProductController {
 
     @GetMapping("/add")
     public String getAddProductPage(Model model) {
+        ProductDTO productDTO = new ProductDTO();
+       List<AdditionalIngredientsDTO> additionalIngredients = new ArrayList<>();
+        productDTO.setAdditionalIngredients(additionalIngredients);
+//        for(int i = 0; i < 5; i++){
+//            AdditionalIngredientsDTO addIng = new AdditionalIngredientsDTO();
+//            addIng.setAdditionalIngredientName("Тест " + i);
+//
+//            additionalIngredients.add(addIng);
+//        }
 
         addAttribute(model, "waxes", "wax");
         addAttribute(model, "jars", "jar");
         addAttribute(model, "scents", "scent");
         addAttribute(model, "wicks", "wick");
         addAttribute(model, "others", "others");
+
+        model.addAttribute("productModel", productDTO);
+       // model.addAttribute("additionalIngredients", additionalIngredients);
 
         return "views/add_product.html";
     }
@@ -68,7 +82,7 @@ public class ProductController {
                              RedirectAttributes redirectAttributes,
                              @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        imageService.changeImageBackground();
+        //imageService.changeImageBackground();
 
         if ( bindingResult.hasErrors() ) {
             addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);

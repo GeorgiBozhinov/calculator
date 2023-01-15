@@ -2,20 +2,31 @@ package com.example.calculator.data.model.dto;
 
 public class AdditionalIngredientsDTO {
 
-    private String cinnamon;
+   private String additionalIngredientName;
+   private Integer count;
 
     public AdditionalIngredientsDTO() {
 
     }
 
-    public String getCinnamon() {
+    public String getAdditionalIngredientName() {
 
-        return cinnamon;
+        return additionalIngredientName;
     }
 
-    public void setCinnamon(String cinnamon) {
+    public void setAdditionalIngredientName(String additionalIngredientName) {
 
-        this.cinnamon = cinnamon;
+        this.additionalIngredientName = additionalIngredientName;
+    }
+
+    public Integer getCount() {
+
+        return count;
+    }
+
+    public void setCount(Integer count) {
+
+        this.count = count;
     }
 
 }

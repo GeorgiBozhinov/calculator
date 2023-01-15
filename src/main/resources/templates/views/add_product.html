@@ -14,12 +14,13 @@
                        class="form-control"
                        id="candleName"
                        name="candleName"
-                        pattern="^[a-zA-Z0-9\s_.,-]+$|^[а-яА-Я0-9\s_.,-]+$"
+                       pattern="^[a-zA-Z0-9\s_.,-]+$|^[а-яА-Я0-9\s_.,-]+$"
                        title="Името на продукта може да съдържа единствено кирилица, латински букви, цифри, тире, долна черта, празно пространство, точка или запетая."
                        required
                 >
                 <p class="invalid-feedback errors alert alert-danger">
-                    Полето е празно или грешно попълнено. Името на продукта може да съдържа единствено кирилица, латински букви, цифри, тире, долна черта, празно пространство, точка или запетая.
+                    Полето е празно или грешно попълнено. Името на продукта може да съдържа единствено кирилица,
+                    латински букви, цифри, тире, долна черта, празно пространство, точка или запетая.
                 </p>
             </div>
             <div class="col">
@@ -137,26 +138,59 @@
                     Полето е празно.
                 </p>
             </div>
+            <!--            <select th:field="*{additionalIngredients}"-->
+            <!--                    id="otherIng"-->
+            <!--                    name="scentType"-->
+            <!--                    class="form-select" multiple="multiple">-->
+            <!--                <option value="тест 1">тест 1</option>-->
+            <!--                <option value="тест 2">тест 2</option>-->
+            <!--                <option value="тест 3">тест 3</option>-->
+            <!--                <option value="тест 4">тест 4</option>-->
+            <!--                <option value="тест 5">тест 5</option>-->
+            <!--                <option value="тест 6">тест 6</option>-->
+            <!--                <option value="тест 7">тест 7</option>-->
+            <!--                <option value="тест 8">тест 8</option>-->
+            <!--                <option-->
+            <!--                        th:each="other : ${others}"-->
+            <!--                        th:text="${other}"-->
+            <!--                        th:value="${other}">-->
+            <!--                </option>-->
+            <!--            </select>-->
             <div class="col">
                 <label class="form-label" for="otherIng">Други</label>
-                <select th:field="*{additionalIngredients}"
-                        id="otherIng"
-                        name="scentType"
-                        class="form-select" multiple="multiple">
-                    <option value="">- Избери други -</option>
-                    <option
-                            th:each="other : ${others}"
-                            th:text="${other}"
-                            th:value="${other}">
-                    </option>
-                </select>
+                <div id="otherIng"
+                     style="max-height: 150px;   overflow-y: scroll;background: white;">
+                    <div class="sel-div">
+                        <div th:each="other : ${others}">
+                            <div style="display: inline-flex;">
+                                <div style="margin-right: 10px;">
+                                    <!--                            <input th:field="*{additionalIngredients}" id="additionalIngredientName"-->
+                                    <!--                                    name="additionalIngredientName" style="color: black; font-size: 15px; padding-left: 10px;"  th:value="${addIngr.additionalIngredientName}">-->
+                                    <a th:field="*{additionalIngredients}"
+                                       th:value="${other}"
+                                       style="color: black; font-size: 15px; padding-left: 10px;">Пръчка канела</a>
+                                </div>
+                                <div style="    margin-left: auto;
+    margin-right: 10px;">
+                                    <select th:field="*{additionalIngredients}" id="count"
+                                            name="count" style="width: 40px;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <p class="invalid-feedback errors alert alert-danger">
                     Полето е празно.
                 </p>
             </div>
             <div class="col">
                 <label class="form-label" for="image">Снимка</label>
-                <input type="file"  class="form-control" id="image" name="image" required>
+                <input type="file" class="form-control" id="image" name="image" required>
             </div>
             <div class="col" th:if="${#fields.hasErrors('global')}">
                 <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"/>
