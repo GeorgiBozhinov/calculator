@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDTO {
@@ -36,10 +37,11 @@ public class ProductDTO {
 
     private String imageName;
 
-    //private List<String> additionalIngredients;
-    private List<AdditionalIngredientsDTO> additionalIngredients;
+    private List<String> additionalIngredients;
+    //private List<AdditionalIngredientsDTO> additionalIngredients;
 
     public ProductDTO() {
+        this.additionalIngredients = new ArrayList<>();
 
     }
 
@@ -143,12 +145,12 @@ public class ProductDTO {
         this.imageName = imageName;
     }
 
-    public List<AdditionalIngredientsDTO> getAdditionalIngredients() {
+    public List<String> getAdditionalIngredients() {
 
         return additionalIngredients;
     }
 
-    public void setAdditionalIngredients(List<AdditionalIngredientsDTO> additionalIngredients) {
+    public void setAdditionalIngredients(List<String> additionalIngredients) {
 
         this.additionalIngredients = additionalIngredients;
     }

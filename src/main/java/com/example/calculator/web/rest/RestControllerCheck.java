@@ -4,10 +4,12 @@ import com.example.calculator.data.model.dto.IngredientDTO;
 import com.example.calculator.data.model.dto.ProductDTO;
 import com.example.calculator.data.service.IngredientService;
 import com.example.calculator.data.service.ProductService;
+import com.example.calculator.data.service.imagesFolder.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.example.calculator.configs.StringConstants.*;
@@ -20,14 +22,18 @@ public class RestControllerCheck {
 
     private final IngredientService ingredientService;
 
-    public RestControllerCheck(ProductService productService, IngredientService ingredientService) {
+    private final ImageService imageService;
+
+    public RestControllerCheck(ProductService productService, IngredientService ingredientService, ImageService imageService) {
         this.productService = productService;
         this.ingredientService = ingredientService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/check")
-    public ResponseEntity<?> getIngredient(@RequestParam String jarTpe, @RequestParam int waxQuantity) {
+    public ResponseEntity<?> getIngredient(@RequestParam(name = "jarTpe") String jarTpe, @RequestParam(name = "waxQuantity") int waxQuantity) {
 
+        System.out.println("Was called");
         if (jarTpe.isEmpty()) {
             return new ResponseEntity<>(NO_JAR, HttpStatus.PRECONDITION_REQUIRED);
         }
@@ -91,6 +97,17 @@ public class RestControllerCheck {
         //With thymeleaf have to be returned bindingError and form be fullfilled
         return new ResponseEntity<>("Already exist product with product name: " + productDTO.getCandleName(), HttpStatus.PRECONDITION_FAILED);
     }
+
+    @PostMapping(value = "/change-image")
+    public ResponseEntity<?> changeImage() throws IOException {
+
+        imageService.changeImageBackground();
+        //With thymeleaf have to be returned bindingError and form be fullfilled
+        return new ResponseEntity<>("Image is processes: ", HttpStatus.FOUND);
+    }
+
+
+
 
 }
 

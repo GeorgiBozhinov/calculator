@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CalculatorController {
@@ -33,32 +35,26 @@ public class CalculatorController {
     @GetMapping("/calc")
     public String getPage(Model model){
 
-        if (!model.containsAttribute("waxes")) {
-            model.addAttribute("waxes", ingredientService.findByIngredientType("wax"));
+        List numberOfOptions = new ArrayList();
+
+        for(int i = 1; i <= 10; i++){
+            numberOfOptions.add(i);
         }
 
-        if (!model.containsAttribute("jars")) {
-            model.addAttribute("jars", ingredientService.findByIngredientType("jar"));
-        }
+        model.addAttribute("options", numberOfOptions);
 
-        if (!model.containsAttribute("scents")) {
-            model.addAttribute("scents", ingredientService.findByIngredientType("scent"));
-        }
-
-        if (!model.containsAttribute("wicks")) {
-            model.addAttribute("wicks", ingredientService.findByIngredientType("wick"));
-        }
-
-        if (!model.containsAttribute("others")) {
-            model.addAttribute("others", ingredientService.findByIngredientType("others"));
-        }
+        addAttribute(model, "waxes", "wax");
+        addAttribute(model, "jars", "jar");
+        addAttribute(model, "scents", "scent");
+        addAttribute(model, "wicks", "wick");
+        addAttribute(model, "others", "others");
 
         return "views/calculator.html";
     }
 
 
     @PostMapping("/calc")
-    public String calculatorCandle(@Valid CalculatorDTO calculatorDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String calculatorCandle(@ModelAttribute CalculatorDTO calculatorDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         // Think how to reuse the method - calculatePrice()
         // CalculatorDTO validations added - Test it
         // Add multiselect field to the html page that will hold additional ingredients which will be calculated per piece.
@@ -86,5 +82,10 @@ public class CalculatorController {
 
     }
 
+    private void  addAttribute(Model model, String attributeName, String ingredientType){
+        if ( !model.containsAttribute(attributeName) ) {
+            model.addAttribute(attributeName, ingredientService.findByIngredientType(ingredientType));
+        }
+    }
 
 }

@@ -47,23 +47,24 @@ public class ProductController {
     @GetMapping("/add")
     public String getAddProductPage(Model model) {
         ProductDTO productDTO = new ProductDTO();
-       List<AdditionalIngredientsDTO> additionalIngredients = new ArrayList<>();
-        productDTO.setAdditionalIngredients(additionalIngredients);
-//        for(int i = 0; i < 5; i++){
-//            AdditionalIngredientsDTO addIng = new AdditionalIngredientsDTO();
-//            addIng.setAdditionalIngredientName("Тест " + i);
-//
-//            additionalIngredients.add(addIng);
-//        }
 
+        List numberOfOptions = new ArrayList();
+
+        for(int i = 1; i <= 10; i++){
+            numberOfOptions.add(i);
+        }
+
+        //System.out.println(numberOfOptions);
         addAttribute(model, "waxes", "wax");
         addAttribute(model, "jars", "jar");
         addAttribute(model, "scents", "scent");
         addAttribute(model, "wicks", "wick");
         addAttribute(model, "others", "others");
 
-        model.addAttribute("productModel", productDTO);
-       // model.addAttribute("additionalIngredients", additionalIngredients);
+
+        //model.addAttribute("productModel", productDTO);
+        model.addAttribute("options", numberOfOptions);
+        //model.addAttribute("additionalIngredients", additionalIngredientsList);
 
         return "views/add_product.html";
     }
@@ -77,12 +78,13 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addProduct(@Valid ProductDTO productDTO,
+    public String addProduct(@ModelAttribute ProductDTO productDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         //imageService.changeImageBackground();
+        String test= "";
 
         if ( bindingResult.hasErrors() ) {
             addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);

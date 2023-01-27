@@ -121,6 +121,7 @@
                     Полето е празно.
                 </p>
             </div>
+            <!--            pattern="[0-9]"-->
             <div class="col">
                 <label class="form-label" for="scentQuantity">Количество аромат</label>
                 <input
@@ -137,19 +138,45 @@
                     Полето е празно.
                 </p>
             </div>
+            <!--            <select th:field="*{additionalIngredients}"-->
+            <!--                    id="otherIng"-->
+            <!--                    name="scentType"-->
+            <!--                    class="form-select" multiple="multiple">-->
+            <!--                <option value="тест 1">тест 1</option>-->
+            <!--                <option value="тест 2">тест 2</option>-->
+            <!--                <option value="тест 3">тест 3</option>-->
+            <!--                <option value="тест 4">тест 4</option>-->
+            <!--                <option value="тест 5">тест 5</option>-->
+            <!--                <option value="тест 6">тест 6</option>-->
+            <!--                <option value="тест 7">тест 7</option>-->
+            <!--                <option value="тест 8">тест 8</option>-->
+            <!--                <option-->
+            <!--                        th:each="other : ${others}"-->
+            <!--                        th:text="${other}"-->
+            <!--                        th:value="${other}">-->
+            <!--                </option>-->
+            <!--            </select>-->
             <div class="col">
                 <label class="form-label" for="otherIng">Други</label>
                 <div id="otherIng" class="oth_set">
-                    <div th:each="other : ${others}" class="par_div">
-                        <select th:field="*{additionalIngredients}" name="additionalIngredients"
-                                class="form-select">
-                            <option th:value="${other}" th:text="${other}"></option>
-                            <option
-                                    th:each="opt : ${options}"
-                                    th:text="${opt}"
-                                    th:value="${other} + '-'+ ${opt}">
-                            </option>
-                        </select>
+                    <div  class="sel-div">
+<!--                        th:each="addIngr, stat : *{additionalIngredients}"-->
+                        <div  th:each="other, otherStat : ${others}">
+                            <div class="par_div">
+                                <div>
+<!--                                    <a th:field="*{additionalIngredients[__${stat.index}__].additionalIngredientName}">Пръчка канела</a>-->
+<!--                                    <a th:text="${other}" th:value="${other}"></a>-->
+                                    <span th:field="*{additionalIngredients[__${otherStat.index}__].additionalIngredientName}" th:text="${other}" name="additionalIngredientName" style="color: black;"></span>
+                                </div>
+                                <div class="div_sel">
+                                    <select th:field="*{additionalIngredients[__${otherStat.index}__].count}" name="count">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

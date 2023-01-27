@@ -73,8 +73,14 @@ public class CalculatorService {
 
         if(additionalIngredients.size() >= 1){
             for (String ingredient : additionalIngredients) {
-                ingredientEntity = ingredientRepository.findByIngredientName(ingredient);
-                finalPrice += ingredientEntity.getPrice();
+                String[] spllitted = ingredient.split("-");
+
+                if(spllitted.length > 1){
+                    ingredientEntity = ingredientRepository.findByIngredientName(spllitted[0]);
+                    double temp = ingredientEntity.getPrice() * Integer.parseInt(spllitted[1]);
+                    System.out.println(spllitted[0] + ": " + temp);
+                    finalPrice += temp;
+                }
             }
         }
 

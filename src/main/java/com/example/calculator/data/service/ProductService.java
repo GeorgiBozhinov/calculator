@@ -1,6 +1,7 @@
 package com.example.calculator.data.service;
 import com.example.calculator.data.base_entities.IngredientEntity;
 import com.example.calculator.data.base_entities.ProductEntity;
+import com.example.calculator.data.model.dto.AdditionalIngredientsDTO;
 import com.example.calculator.data.model.dto.ProductDTO;
 import com.example.calculator.data.repository.IngredientRepository;
 import com.example.calculator.data.repository.ProductRepository;
@@ -74,13 +75,7 @@ public class ProductService {
     }
 
 
-    public Double calculatePrice(ProductDTO productDTO){
-        //Количество восък - изчислява се
-        //Количество фитил - изчислява се
-        //Други компоненти - изчислява се
-        //Аромат(мл или капки) - изчислява се
-        //Контейнер - изчислява се
-
+    private Double calculatePrice(ProductDTO productDTO){
         String waxType = productDTO.getWaxType();  //repeating
         int waxQuantity = productDTO.getWaxQuantity(); //repeating
 
@@ -119,14 +114,20 @@ public class ProductService {
 
         ingredientPrice += scentPrice/(scentQuantityDB/scentQuantity);
 
-        //List<String> additionalIngredients = productDTO.getAdditionalIngredients();
+       List<String> additionalIngredients = productDTO.getAdditionalIngredients();
 
-//        if(additionalIngredients.size() >= 1){
-//            for (String ingredient : additionalIngredients) {
-//                ingredientEntity = ingredientRepository.findByIngredientName(ingredient);
-//                ingredientPrice += ingredientEntity.getPrice();
-//            }
-//        }
+        if(additionalIngredients.size() >= 1){
+            for (String ingredient : additionalIngredients) {
+                String[] spllitted = ingredient.split("-");
+
+                if(spllitted.length > 1){
+                    ingredientEntity = ingredientRepository.findByIngredientName(spllitted[0]);
+                    double temp = ingredientEntity.getPrice() * Integer.parseInt(spllitted[1]);
+                    System.out.println(spllitted[0] + ": " + temp);
+                    ingredientPrice += temp;
+                }
+            }
+        }
 
         ingredientPrice = Math.round(ingredientPrice * 100.0) / 100.0;
 

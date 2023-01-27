@@ -116,8 +116,35 @@ span {
     margin-top: 15px !important;
 }
 
-.sel-div {
-    /*display: flex;*/
-    margin-top: 10px;
+/*.sel-div {*/
+/*    !*display: flex;*!*/
+/*    margin-top: 10px;*/
+/*}*/
+
+.oth_set {
+    max-height: 150px;
+    overflow-y: scroll;
+    background: white;
+}
+
+.par_div {
+    display: inline-flex;
+    width: auto;
+    margin-top: 5px;
+}
+
+.par_div a {
+    color: black;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.div_sel {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.div_sel select {
+    width: 40px;
 }
 
