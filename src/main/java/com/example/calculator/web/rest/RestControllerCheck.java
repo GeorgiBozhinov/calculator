@@ -33,10 +33,10 @@ public class RestControllerCheck {
     @GetMapping("/check")
     public ResponseEntity<?> getIngredient(@RequestParam(name = "jarTpe") String jarTpe, @RequestParam(name = "waxQuantity") int waxQuantity) {
 
-        System.out.println("Was called");
         if (jarTpe.isEmpty()) {
             return new ResponseEntity<>(NO_JAR, HttpStatus.PRECONDITION_REQUIRED);
         }
+
         Integer jarQuantity = productService.jarQuantity(jarTpe);
         if (jarQuantity == 0) {
             return new ResponseEntity<>(NOT_FOUND_JAR, HttpStatus.PRECONDITION_FAILED);
@@ -97,17 +97,6 @@ public class RestControllerCheck {
         //With thymeleaf have to be returned bindingError and form be fullfilled
         return new ResponseEntity<>("Already exist product with product name: " + productDTO.getCandleName(), HttpStatus.PRECONDITION_FAILED);
     }
-
-    @PostMapping(value = "/change-image")
-    public ResponseEntity<?> changeImage() throws IOException {
-
-        imageService.changeImageBackground();
-        //With thymeleaf have to be returned bindingError and form be fullfilled
-        return new ResponseEntity<>("Image is processes: ", HttpStatus.FOUND);
-    }
-
-
-
 
 }
 

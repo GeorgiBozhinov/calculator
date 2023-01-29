@@ -8,15 +8,6 @@ function showMessage(message) {
 
     })
 
-
-    //     .then((result) => {
-    //     if (result.isDismissed) {
-    //       funcToExec();
-    //
-    //     }
-    //
-    // });
-
 }
 
 
@@ -38,6 +29,40 @@ function showMessageConfirm(message) {
             Swal.fire('Changes are not saved', '', 'info')
         }
     })
+
+}
+
+function checkJarQuantity(sendButtonElement, jarType, waxQuantityElement) {
+
+    $.ajax({
+        url: "/api/check",
+        type: "GET",
+        data: {
+            jarTpe: jarType,
+            waxQuantity: waxQuantityElement.val()
+        },
+        success: function (xhr) {
+            sendButtonElement.unbind('click');
+            waxQuantityElement.removeClass('col-pink');
+        },
+        error: function (xhr) {
+            waxQuantityElement.addClass('col-pink');
+
+            if (xhr.status == '400') {
+                showMessage('Error occurred, pleases contact system administrator!');
+                return;
+            }
+
+            showMessage(xhr.responseText);
+
+            $('#subAddProd').click(function (event) {
+                showMessage('The needed wax quantity cannot be more than the selected jar capacity.');
+                event.preventDefault();
+            });
+
+        }
+
+    });
 
 }
 

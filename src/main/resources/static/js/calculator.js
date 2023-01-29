@@ -21,10 +21,30 @@ if (document.querySelector('#jarOwner')) {
 
 }
 
+$("#waxQuantity").keyup(function () {
+    let waxQuantity = $("#waxQuantity");
 
-// $( '#otherIng' ).select2( {
-//     theme: "bootstrap-5",
-//     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-//     placeholder: $( this ).data( 'placeholder' ),
-//     closeOnSelect: false,
-// } );
+    if (waxQuantity.val() >= 1) {
+        checkJarQuantity($('#submitCalc'), $('#candleJar').val() ,waxQuantity);
+
+    }
+
+});
+
+// if(document.querySelector('#resBut')){
+//     document.querySelector('#resBut').addEventListener('click', function (){
+//         let allElements =  document.querySelector('#calc-form');
+//
+//         for(let i = 0; i < allElements.length; i++){
+//             if(allElements[i].tagName === "INPUT"){
+//                 allElements[i].value = '';
+//                 console.log('input');
+//             } else if (allElements[i].tagName === "SELECT"){
+//                 allElements[i].selectedIndex = false;
+//                 console.log('select');
+//             }
+//
+//         }
+//
+//     });
+// }

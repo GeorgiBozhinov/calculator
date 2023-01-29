@@ -53,15 +53,6 @@ public class ProductService {
         return 0;
     }
 
-//    public List<ProductEntity> getAllProducts() {
-//        List<ProductEntity> list = productRepository.findAll();
-//        //list.forEach(l -> System.out.println("Image url: " + l.getImageName()));
-//
-//        return productRepository.findAll();
-//
-////        List<ProductEntity> allTenDollarProducts =
-////                productRepository.findAllByPrice(, secondPageWithFiveElements);
-//    }
 
     public Page<ProductEntity> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable);

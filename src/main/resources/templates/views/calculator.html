@@ -4,7 +4,7 @@
 <body class="d-flex flex-column h-100">
 <th:block th:include="~{_shared/header}"/>
 <div class="container mt-1 mb-1 border border-secondary border-2 rounded backg-color text-white con-width">
-    <form th:action="@{/calc}" method="POST" th:object="${calculatorModel}">
+    <form th:action="@{/calc}" method="POST" th:object="${calculatorModel}" id="calc-form">
         <div class="col mb-2">
             <div class="col">
                 <label class="form-label" for="waxType">Тип восък</label>
@@ -173,8 +173,9 @@
             </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<!--            <button id="resBut" type="reset" class="btn btn-success mb-2 me-2">Изчисти</button>-->
             <button id="resBut" type="reset" class="btn btn-success mb-2 me-2">Изчисти</button>
-            <button id="subAddProd" type="submit" class="btn btn-success mb-2 me-2">Изчисли</button>
+            <button id="submitCalc" type="submit" class="btn btn-success mb-2 me-2">Изчисли</button>
         </div>
     </form>
 

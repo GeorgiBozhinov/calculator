@@ -47,7 +47,7 @@ span {
 }
 
 .col-pink {
-    background: pink;
+    background-color: pink !important;
 }
 
 .btn-style {
