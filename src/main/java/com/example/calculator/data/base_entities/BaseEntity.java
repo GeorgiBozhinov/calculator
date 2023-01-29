@@ -1,4 +1,5 @@
 package com.example.calculator.data.base_entities;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
