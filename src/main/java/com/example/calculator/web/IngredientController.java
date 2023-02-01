@@ -51,13 +51,13 @@ public class IngredientController {
             model.addAttribute("components", componentService.getAllComponents());
         }
 
-        return "views/add_ingredient.html";
+        return "views/add_ingredient";
     }
 
     @GetMapping("/succ")
     public String getSuccessPage() {
         // When page is refreshed error is returned. Handle the error
-        return "views/result_ingredient.html";
+        return "views/result_ingredient";
     }
 
     @GetMapping("/all")
@@ -67,7 +67,7 @@ public class IngredientController {
             model.addAttribute("ingredients", ingredientService.getAllIngredients());
         }
 
-        return "views/view_ingredient.html";
+        return "views/view_ingredient";
     }
 
     @PostMapping("/add")

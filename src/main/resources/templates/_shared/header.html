@@ -6,38 +6,66 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <button class="navbar-toggler ms-auto ms-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+        <button class="navbar-toggler ms-auto ms-sm-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo01"
                 aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <a class="navbar-brand" th:href="@{/home}">Candles in Jar</a>
             <ul class="navbar-nav ms-auto align-items-end">
-                <li class="nav-item" sec:authorize="ïsAuthenticated()">
-                    <a class="nav-link" th:href="@{/ingredient/all}">Ценова листа</a>
-                </li>
-                <li class="nav-item" sec:authorize="ïsAuthenticated()">
-                    <a class="nav-link" th:href="@{/product/add}">Добави продукт</a>
-                </li>
-                <li class="nav-item" sec:authorize="ïsAuthenticated()">
-                    <a class="nav-link" th:href="@{/ingredient/add}">Добави компонент</a>
-                </li>
-                <li class="nav-item" sec:authorize="ïsAuthenticated()">
-                    <a class="nav-link" th:href="@{/calc}">Калкулатор</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" style=" background-color: #212529 !important; text-align: right;">
+                        <li class="nav-item" sec:authorize="ïsAuthenticated()">
+                            <a class="nav-link" th:href="@{/ingredient/all}">Ценова листа</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="ïsAuthenticated()">
+                            <a class="nav-link" th:href="@{/product/add}">Добави продукт</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="ïsAuthenticated()">
+                            <a class="nav-link" th:href="@{/ingredient/add}">Добави компонент</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="ïsAuthenticated()">
+                            <a class="nav-link" th:href="@{/calc}">Калкулатор</a>
+                        </li>
+                    </ul>
                 </li>
 
 <!--                <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
-<!--                    <a class="nav-link" th:href="@{/users/logout}">Изход</a>-->
+<!--                    <div class="dropdown">-->
+<!--                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"-->
+<!--                                aria-expanded="false">-->
+<!--                            Dropdown button-->
+<!--                        </button>-->
+<!--                        <ul class="dropdown-menu">-->
+<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
+<!--                                <a class="nav-link" th:href="@{/ingredient/all}">Ценова листа</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
+<!--                                <a class="nav-link" th:href="@{/product/add}">Добави продукт</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
+<!--                                <a class="nav-link" th:href="@{/ingredient/add}">Добави компонент</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
+<!--                                <a class="nav-link" th:href="@{/calc}">Калкулатор</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
 <!--                </li>-->
+                <li class="nav-item" sec:authorize="ïsAuthenticated()">
+                    <a class="nav-link" th:href="@{/users/all}">Всички потребители</a>
+                </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <div class="form-inline my-2 my-lg-0 px-3">
-<!--                        <div class="text-white" >Welcome, <th:block sec:authentication="name">X</th:block>!</div>-->
                         <form th:action="@{/users/logout}" th:method="post">
                             <input class="btn btn-link nav-link" type="submit" value="Изход">
                         </form>
                     </div>
                 </li>
-
             </ul>
         </div>
     </div>

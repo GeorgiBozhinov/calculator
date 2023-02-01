@@ -14,9 +14,14 @@ public class UserEntity extends BaseEntity {
 
     private String password;
 
-   // @Access(AccessType.PROPERTY)
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
-    //@ManyToMany(targetEntity=UserRoleEntity.class)
     private List<UserRoleEntity> userRoles;
 
     public String getUsername() {
@@ -53,12 +58,24 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", userRoles=" + userRoles +
-                '}';
+    public String getFirstName() {
+
+        return firstName;
     }
+
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+
+        return lastName;
+    }
+
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
 }

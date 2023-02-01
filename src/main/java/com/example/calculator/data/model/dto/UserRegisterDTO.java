@@ -9,6 +9,10 @@ public class UserRegisterDTO {
     private String password;
     @NotNull
     private String confirmPassword;
+    @NotNull
+    private String firstName;
+    @NotNull
+    private String lastName;
 
     public UserRegisterDTO() {
 
@@ -42,6 +46,26 @@ public class UserRegisterDTO {
     public void setConfirmPassword(String confirmPassword) {
 
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getFirstName() {
+
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+
+        this.lastName = lastName;
     }
 
 }

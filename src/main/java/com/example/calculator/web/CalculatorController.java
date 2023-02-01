@@ -49,7 +49,7 @@ public class CalculatorController {
         addAttribute(model, "wicks", "wick");
         addAttribute(model, "others", "others");
 
-        return "views/calculator.html";
+        return "views/calculator";
     }
 
 

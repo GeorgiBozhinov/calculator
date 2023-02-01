@@ -8,11 +8,20 @@
 <body>
 <th:block th:include="~{_shared/header}"/>
 <main>
-    <div class="container mt-3">
+<!--    add form element with get method-->
+    <div class="input-group mt-3">
+        <div class="form-outline">
+            <input type="search" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="container mt-6">
         <div class="row align-items-center" id="row-index">
             <div class="col" th:each="product : ${products}">
                 <a rel="group">
-                    <!--                    <img th:src="@{${product.imageName}}" class="img-responsive caixa-img-produto" style="width: 80%;" alt=""/>-->
                     <img th:src="@{${product.imageName}}" class="rounded mx-auto d-block img-st mb-1" alt=""/>
                 </a>
                 <p class="p-prod" th:text="${product.candleName} + ' - ' + ${product.price} + ' лв.'"></p>

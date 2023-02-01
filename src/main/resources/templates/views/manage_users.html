@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<th:block th:include="~{_shared/head}"/>
+<body class="d-flex flex-column h-100">
+<th:block th:include="~{_shared/header}"/>
+<div class="container mt-1 border-secondary border-2 rounded text-white table-color">
+    <div class="table-responsive">
+        <table class="table table-bordered border-dark">
+            <thead>
+            <tr>
+                <th scope="col">Потребителско име</th>
+                <th scope="col">Собствено име</th>
+                <th scope="col">Фамилия</th>
+<!--                <th scope="col">Роля</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<th:block th:include="~{_shared/footer}"/>
+</body>
+<th:block th:include="~{_shared/scripts/main_scripts}"/>
+</html>

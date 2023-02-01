@@ -66,7 +66,7 @@ public class ProductController {
         model.addAttribute("options", numberOfOptions);
         //model.addAttribute("additionalIngredients", additionalIngredientsList);
 
-        return "views/add_product.html";
+        return "views/add_product";
     }
 
     @GetMapping("/succ")
@@ -74,7 +74,7 @@ public class ProductController {
 
         //If the request is coming from the index page, redirect to it.
         //When the user add product and then leave his device and after some time use it again if it is on /product/succ on refresh will give him an error
-        return "views/result_product.html";
+        return "views/result_product";
     }
 
     @PostMapping("/add")

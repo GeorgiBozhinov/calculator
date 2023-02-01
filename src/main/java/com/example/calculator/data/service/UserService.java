@@ -60,6 +60,7 @@ package com.example.calculator.data.service;
 import com.example.calculator.data.base_entities.UserEntity;
 import com.example.calculator.data.base_entities.UserRoleEntity;
 import com.example.calculator.data.enums.UserRoleEnum;
+import com.example.calculator.data.interfaces.UserInterface;
 import com.example.calculator.data.model.dto.UserRegisterDTO;
 import com.example.calculator.data.repository.UserRepository;
 import com.example.calculator.data.repository.UserRoleRepository;
@@ -95,8 +96,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
-//        this.appUserDetailsService = appUserDetailsService;
-//        this.adminPass = adminPass;
         this.appUserDetailsService = appUserDetailsService;
     }
 
@@ -148,7 +147,10 @@ public class UserService {
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 
         UserEntity newUser =
-                new UserEntity().setUsername(userRegisterDTO.getUsername()).
+                new UserEntity().
+                        setUsername(userRegisterDTO.getUsername()).
+                        setFirstName(userRegisterDTO.getFirstName()).
+                        setLastName(userRegisterDTO.getLastName()).
                         setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
         userRepository.save(newUser);
@@ -166,5 +168,14 @@ public class UserService {
         SecurityContextHolder.
                 getContext().
                 setAuthentication(auth);
+    }
+
+    /**
+     * @return all users and specific columns
+     */
+    public List<UserInterface> getAllUsers(){
+        //List<UserInterface> usersDTOList = userRepository.findAllUsers();
+
+        return  userRepository.findAllUsers();
     }
 }
