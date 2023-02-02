@@ -9,16 +9,11 @@
 <th:block th:include="~{_shared/header}"/>
 <main>
 <!--    add form element with get method-->
-    <div class="input-group mt-3">
-        <div class="form-outline">
-            <input type="search" id="form1" class="form-control" />
-            <label class="form-label" for="form1">Search</label>
-        </div>
-        <button type="button" class="btn btn-primary">
-            <i class="fas fa-search"></i>
-        </button>
+    <div class="input-group mt-3" style="width: 40%; min-width: 20%; margin: auto; padding-left: 10px;padding-right: 10px;">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary">search</button>
     </div>
-    <div class="container mt-6">
+    <div class="container mt-5">
         <div class="row align-items-center" id="row-index">
             <div class="col" th:each="product : ${products}">
                 <a rel="group">

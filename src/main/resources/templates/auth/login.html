@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 <th:block th:include="~{_shared/head}"/>
-<body class="d-flex flex-column h-100">
+<!--<body class="d-flex flex-column h-100">-->
+<body>
+<th:block th:include="~{_shared/header}"/>
 <div class="container mt-1 mb-1 border border-secondary border-2 rounded bg-secondary text-white div-width" >
     <form th:action="@{/users/login}" method="POST">
         <div class="col mb-2">
