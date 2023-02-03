@@ -60,7 +60,6 @@ package com.example.calculator.data.service;
 import com.example.calculator.data.base_entities.UserEntity;
 import com.example.calculator.data.base_entities.UserRoleEntity;
 import com.example.calculator.data.enums.UserRoleEnum;
-import com.example.calculator.data.interfaces.UserInterface;
 import com.example.calculator.data.model.dto.UpdateUserDTO;
 import com.example.calculator.data.model.dto.UserRegisterDTO;
 import com.example.calculator.data.repository.UserRepository;
@@ -74,6 +73,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -199,16 +200,19 @@ public class UserService {
     /**
      * @return all users and specific columns
      */
-    public List<UserInterface> getAllUsers(){
-        //List<UserInterface> usersDTOList = userRepository.findAllUsers();
+    public List<UpdateUserDTO> getAllUsers(){
+        List<UserEntity> usersEntityList = userRepository.findAll();
+        List<UpdateUserDTO> usersDTOList = new ArrayList<>();
 
-        return  userRepository.findAllUsers();
+        usersEntityList.forEach(userEntity -> usersDTOList.add(modelMapper.map(userEntity, UpdateUserDTO.class)));
+
+        return  usersDTOList;
     }
 
-    public UpdateUserDTO getUser(Long userId){
+    public Optional<UpdateUserDTO> getUser(Long userId){
         Optional<UserEntity> userEntity = userRepository.findById(userId);
 
-        return modelMapper.map(userEntity, UpdateUserDTO.class);
+        return Optional.ofNullable(modelMapper.map(userEntity, UpdateUserDTO.class));
 
     }
 }

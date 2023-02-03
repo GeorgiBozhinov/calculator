@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -39,7 +42,8 @@ public class UserController {
     @GetMapping("/all")
     private String allUsers(Model model){
 
-        //List<UserInterface> tes = userService.getAllUsers();
+        List<UpdateUserDTO> tes = userService.getAllUsers();
+
         model.addAttribute("users", userService.getAllUsers());
 
         return "views/manage_users";
@@ -48,7 +52,12 @@ public class UserController {
     @GetMapping("/edit/{id}")
     private String editUser(@PathVariable("id") long id,  Model model){
 
-        UpdateUserDTO updateUserDTO = userService.getUser(id);
+        Optional<UpdateUserDTO> updateUserDTO = userService.getUser(id);
+
+//        UpdateUserDTO updateUserDTO = new UpdateUserDTO();
+//        updateUserDTO.setUsername("test");
+//        updateUserDTO.setFirstName("test");
+//        updateUserDTO.setLastName("test");
 
         model.addAttribute("userModel", updateUserDTO);
 
