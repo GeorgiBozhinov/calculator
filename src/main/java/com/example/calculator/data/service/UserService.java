@@ -119,6 +119,8 @@ public class UserService {
         UserEntity admin = new UserEntity().
                 setUserRoles(roles).
                 setUsername("admin_joro").
+                setFirstName("Test").
+                setLastName("Test").
                 setPassword(passwordEncoder.encode(""));
 
         userRepository.save(admin);
@@ -129,6 +131,8 @@ public class UserService {
         UserEntity moderator = new UserEntity().
                 setUserRoles(roles).
                 setUsername("moderator_joro").
+                setFirstName("Test").
+                setLastName("Test").
                 setPassword(passwordEncoder.encode(""));
 
         userRepository.save(moderator);
@@ -139,18 +143,34 @@ public class UserService {
         UserEntity user = new UserEntity().
                 setUserRoles(roles).
                 setUsername("user_joro").
+                setFirstName("Test").
+                setLastName("Test").
                 setPassword(passwordEncoder.encode(""));
 
         userRepository.save(user);
     }
 
+    public boolean createUserIfNotExist(String username) {
+
+        var userOpt = this.userRepository.findByUsername(username);
+
+        if ( !userOpt.isEmpty() ) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
+
+        UserRoleEntity userRole = new UserRoleEntity().setUserRole(UserRoleEnum.USER);
 
         UserEntity newUser =
                 new UserEntity().
                         setUsername(userRegisterDTO.getUsername()).
                         setFirstName(userRegisterDTO.getFirstName()).
                         setLastName(userRegisterDTO.getLastName()).
+                        setUserRoles(List.of(userRole)).
                         setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
         userRepository.save(newUser);

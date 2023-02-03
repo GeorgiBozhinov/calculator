@@ -3,71 +3,91 @@
 <th:block th:include="~{_shared/head}"/>
 <body>
 <th:block th:include="~{_shared/header}"/>
-<div class="container mt-1 mb-1 border border-secondary border-2 rounded bg-secondary text-white add-prod" style="width: 30%;">
-  <form th:action="@{/users/register}" method="POST">
-    <div class="col mb-2">
-      <div class="col">
-        <label class="form-label" for="username">Потребителско име</label>
-        <input
-                id="username"
-                th:value="${username}"
-                name="username"
-                type="text"
-                min="2"
-                max="50"
-                class="form-control"
-                placeholder="Потребителско име"/>
-      </div>
-      <div class="col">
-        <label class="form-label" for="firstName">Собствено име</label>
-        <input
-                id="firstName"
-                th:value="${firstName}"
-                name="firstName"
-                type="text"
-                class="form-control"
-                placeholder="Собствено име"/>
-      </div>
-      <div class="col">
-        <label class="form-label" for="lastName">Фамилия</label>
-        <input
-                id="lastName"
-                th:value="${lastName}"
-                name="lastName"
-                type="text"
-                class="form-control"
-                placeholder="Фамилия"/>
-      </div>
-      <div class="col">
-        <label class="form-label" for="password">Парола</label>
-        <input
-                id="password"
-                name="password"
-                type="password"
-                min="2"
-                max="20"
-                class="form-control"
-                placeholder="Парола"/>
-      </div>
-      <div class="col">
-        <label class="form-label" for="confirmPassword">Потвърди парола</label>
-        <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                min="2"
-                max="20"
-                class="form-control"
-                placeholder="Потвърди парола"/>
-      </div>
-      <p th:if="${bad_credentials}" class="errors alert alert-danger">
-        Грешно потребителско име или парола.
-      </p>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button id="subAddProd" type="submit" class="btn btn-success mb-2 me-2">Изпрати</button>
-    </div>
-  </form>
+<div class="container mt-1 mb-1 border border-secondary border-2 rounded bg-secondary text-white add-prod"
+     style="width: 30%;">
+    <form th:action="@{/users/register}" method="POST" th:object="${userModel}">
+        <div class="col mb-2">
+            <div class="col">
+                <label class="form-label" for="username">Потребителско име</label>
+                <input
+                        id="username"
+                        th:field="*{username}"
+                        th:errorclass="is-invalid"
+                        name="username"
+                        type="text"
+                        min="2"
+                        max="50"
+                        class="form-control"
+                        placeholder="Потребителско име"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Passwords should match.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="firstName">Собствено име</label>
+                <input
+                        id="firstName"
+                        th:field="*{firstName}"
+                        th:errorclass="is-invalid"
+                        name="firstName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Собствено име"/>
+            </div>
+            <div class="col">
+                <label class="form-label" for="lastName">Фамилия</label>
+                <input
+                        id="lastName"
+                        th:field="*{lastName}"
+                        th:errorclass="is-invalid"
+                        name="lastName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Фамилия"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Passwords should match.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="password">Парола</label>
+                <input
+                        id="password"
+                        th:field="*{password}"
+                        th:errorclass="is-invalid"
+                        name="password"
+                        type="password"
+                        min="2"
+                        max="20"
+                        class="form-control"
+                        placeholder="Парола"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Паролата трябва да съдържа поне една малка буква на латиница, поне една главна буква на латиница, поне едно число и поне един специален символ с обща дължина на паролата от 8 до 20.
+                </p>
+            </div>
+            <div class="col">
+                <label class="form-label" for="confirmPassword">Потвърди парола</label>
+                <input
+                        id="confirmPassword"
+                        th:field="*{confirmPassword}"
+                        th:errorclass="is-invalid"
+                        name="confirmPassword"
+                        type="password"
+                        min="2"
+                        max="20"
+                        class="form-control"
+                        placeholder="Потвърди парола"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Паролата трябва да съдържа поне малка буква на латиница, поне една главна буква на латиница, поне едно число и поне един специален символ с обща дължина на паролата от 8 до 20.
+                </p>
+            </div>
+            <div class="col" th:if="${#fields.hasErrors('global')}">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" style="color: #8b0000;"/>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="subAddProd" type="submit" class="btn btn-success mb-2 me-2">Изпрати</button>
+        </div>
+    </form>
 </div>
 </body>
 <th:block th:include="~{_shared/scripts/main_scripts}"/>

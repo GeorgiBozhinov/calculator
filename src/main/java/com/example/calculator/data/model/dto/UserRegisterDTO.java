@@ -1,13 +1,15 @@
 package com.example.calculator.data.model.dto;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class UserRegisterDTO {
 
     @NotNull
     private String username;
-    @NotNull
+
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
     private String password;
-    @NotNull
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
     private String confirmPassword;
     @NotNull
     private String firstName;

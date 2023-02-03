@@ -23,4 +23,6 @@ public class StringConstants {
 
     public static String IMAGE_SIZE = "Размерът на снимката на може да бъде по голям от (3MB)";
 
+    public static String USER_EXIST = "Потребителското име е заето, моля опитайте с друго";
+    public static String PASSWORDS_DOES_NOT_MATCH = "Паролите не съвпадат";
 }
