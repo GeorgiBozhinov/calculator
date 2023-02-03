@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<th:block th:include="~{_shared/head}"/>
+<body class="d-flex flex-column h-100">
+<th:block th:include="~{_shared/header}"/>
+<div class="container mt-1 mb-1 border border-secondary border-2 rounded bg-secondary text-white add-prod"
+     style="width: 30%;">
+  <form th:action="@{/update/{id}(id=${userModel.id})}" method="POST" th:object="${userModel}">
+    <div class="col mb-2">
+      <div class="col">
+        <label class="form-label" for="username">Потребителско име</label>
+        <input
+                id="username"
+                th:field="*{username}"
+                th:errorclass="is-invalid"
+                name="username"
+                type="text"
+                min="2"
+                max="50"
+                class="form-control"
+                placeholder="Потребителско име"/>
+        <p class="invalid-feedback errors alert alert-danger">
+          Passwords should match.
+        </p>
+      </div>
+      <div class="col">
+        <label class="form-label" for="firstName">Собствено име</label>
+        <input
+                id="firstName"
+                th:field="*{firstName}"
+                th:errorclass="is-invalid"
+                name="firstName"
+                type="text"
+                class="form-control"
+                placeholder="Собствено име"/>
+      </div>
+      <div class="col">
+        <label class="form-label" for="lastName">Фамилия</label>
+        <input
+                id="lastName"
+                th:field="*{lastName}"
+                th:errorclass="is-invalid"
+                name="lastName"
+                type="text"
+                class="form-control"
+                placeholder="Фамилия"/>
+        <p class="invalid-feedback errors alert alert-danger">
+          Passwords should match.
+        </p>
+      </div>
+      <div class="col" th:if="${#fields.hasErrors('global')}">
+        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" style="color: #8b0000;"/>
+      </div>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button id="subAddProd" type="submit" class="btn btn-success mb-2 me-2">Изпрати</button>
+    </div>
+  </form>
+</div>
+<th:block th:include="~{_shared/footer}"/>
+
+</body>
+</html>

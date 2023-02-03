@@ -16,7 +16,7 @@
             <ul class="navbar-nav ms-auto align-items-end">
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
+                        Админ меню
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" style=" background-color: #212529 !important; text-align: center; width: 200px;">
                         <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -33,29 +33,6 @@
                         </li>
                     </ul>
                 </li>
-
-<!--                <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
-<!--                    <div class="dropdown">-->
-<!--                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"-->
-<!--                                aria-expanded="false">-->
-<!--                            Dropdown button-->
-<!--                        </button>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
-<!--                                <a class="nav-link" th:href="@{/ingredient/all}">Ценова листа</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
-<!--                                <a class="nav-link" th:href="@{/product/add}">Добави продукт</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
-<!--                                <a class="nav-link" th:href="@{/ingredient/add}">Добави компонент</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item" sec:authorize="ïsAuthenticated()">-->
-<!--                                <a class="nav-link" th:href="@{/calc}">Калкулатор</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </li>-->
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/users/all}">Всички потребители</a>
                 </li>

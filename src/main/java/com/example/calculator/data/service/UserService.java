@@ -61,9 +61,11 @@ import com.example.calculator.data.base_entities.UserEntity;
 import com.example.calculator.data.base_entities.UserRoleEntity;
 import com.example.calculator.data.enums.UserRoleEnum;
 import com.example.calculator.data.interfaces.UserInterface;
+import com.example.calculator.data.model.dto.UpdateUserDTO;
 import com.example.calculator.data.model.dto.UserRegisterDTO;
 import com.example.calculator.data.repository.UserRepository;
 import com.example.calculator.data.repository.UserRoleRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,6 +75,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -85,18 +88,21 @@ public class UserService {
 
     private final UserDetailsService appUserDetailsService;
 
+    private final ModelMapper modelMapper;
+
     //private final UserDetailsService appUserDetailsService;
 
     //private String adminPass;
 
     public UserService(UserRepository userRepository,
                        UserRoleRepository userRoleRepository,
-                       PasswordEncoder passwordEncoder, UserDetailsService appUserDetailsService) {
+                       PasswordEncoder passwordEncoder, UserDetailsService appUserDetailsService, ModelMapper modelMapper) {
 
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
         this.appUserDetailsService = appUserDetailsService;
+        this.modelMapper = modelMapper;
     }
 
     public void init() {
@@ -197,5 +203,12 @@ public class UserService {
         //List<UserInterface> usersDTOList = userRepository.findAllUsers();
 
         return  userRepository.findAllUsers();
+    }
+
+    public UpdateUserDTO getUser(Long userId){
+        Optional<UserEntity> userEntity = userRepository.findById(userId);
+
+        return modelMapper.map(userEntity, UpdateUserDTO.class);
+
     }
 }

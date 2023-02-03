@@ -3,7 +3,7 @@
 <th:block th:include="~{_shared/head}"/>
 <body class="d-flex flex-column h-100">
 <th:block th:include="~{_shared/header}"/>
-<div class="container mt-1 border-secondary border-2 rounded text-white table-color">
+<div class="container mt-3 border-secondary border-2 rounded text-white table-color">
     <div class="table-responsive">
         <table class="table table-bordered border-dark">
             <thead>
@@ -11,7 +11,7 @@
                 <th scope="col">Потребителско име</th>
                 <th scope="col">Собствено име</th>
                 <th scope="col">Фамилия</th>
-<!--                <th scope="col">Роля</th>-->
+                <th scope="col">Действия</th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +19,9 @@
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
+                <td>
+                    <a th:href="@{/users/edit/{id}(id=${user.id})}">Редактирай</a>
+                </td>
             </tr>
             </tbody>
         </table>
