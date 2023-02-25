@@ -3,6 +3,7 @@ import com.example.calculator.data.enums.UserRoleEnum;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name ="user_roles")
@@ -15,6 +16,9 @@ public class UserRoleEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRoleEnum userRole;
+
+    @ManyToMany(mappedBy = "userRoles")
+    private List<UserEntity> usersList;
 
     public Long getId() {
         return id;

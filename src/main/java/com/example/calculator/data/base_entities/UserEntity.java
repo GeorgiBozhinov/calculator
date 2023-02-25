@@ -21,8 +21,14 @@ public class UserEntity extends BaseEntity {
     private String lastName;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<UserRoleEntity> userRoles;
+    //@ManyToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public String getUsername() {
 
