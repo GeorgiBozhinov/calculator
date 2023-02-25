@@ -5,7 +5,7 @@
 <th:block th:include="~{_shared/header}"/>
 <div class="container mt-1 mb-1 border border-secondary border-2 rounded bg-secondary text-white add-prod"
      style="width: 30%;">
-  <form th:action="@{/update/{id}(id=${userModel.id})}" method="POST" th:object="${userModel}">
+  <form th:action="@{/users/update/{id}(id=${userModel.id})}" method="POST" th:object="${userModel}">
     <div class="col mb-2">
       <div class="col">
         <label class="form-label" for="username">Потребителско име</label>

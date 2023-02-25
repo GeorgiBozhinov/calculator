@@ -90,3 +90,41 @@ if (spanElLength >= 1) {
 
 }
 
+if (document.querySelector('#form')) {
+    const form = document.querySelector('#form')
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        if (document.querySelector('#input-search')) {
+            const inputField = document.querySelector('#input-search');
+            const searchingText = inputField.value.toLowerCase();
+
+            const pElements = document.querySelectorAll('.container .p-prod');
+
+            pElements.forEach(el => {
+                const parentElement = el.parentElement;
+
+                if (searchingText !== '') {
+                    const productName = el.textContent.toLowerCase();
+
+                    if (!productName.includes(searchingText)) {
+                        parentElement.classList.add('hidden');
+                    } else {
+                        parentElement.classList.remove('hidden');
+                    }
+
+                } else if (parentElement.classList.contains('hidden')) {
+                    parentElement.classList.remove('hidden');
+                }
+
+                console.log(el.textContent);
+
+            });
+
+        }
+
+    });
+
+}
+

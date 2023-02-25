@@ -1,15 +1,15 @@
 package com.example.calculator.web;
-
 import com.example.calculator.data.model.dto.UpdateUserDTO;
 import com.example.calculator.data.service.UserService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -18,11 +18,13 @@ public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {
+
         this.userService = userService;
     }
 
     @GetMapping("/login")
-    private String loginPage(){
+    private String loginPage() {
+
         return "auth/login";
     }
 
@@ -40,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    private String allUsers(Model model){
+    private String allUsers(Model model) {
 
         List<UpdateUserDTO> tes = userService.getAllUsers();
 
@@ -50,19 +52,28 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    private String editUser(@PathVariable("id") long id,  Model model){
+    private String editUser(@PathVariable("id") long id, Model model) {
 
-        Optional<UpdateUserDTO> updateUserDTO = userService.getUser(id);
-
-//        UpdateUserDTO updateUserDTO = new UpdateUserDTO();
-//        updateUserDTO.setUsername("test");
-//        updateUserDTO.setFirstName("test");
-//        updateUserDTO.setLastName("test");
+        UpdateUserDTO updateUserDTO = userService.getUser(id);
 
         model.addAttribute("userModel", updateUserDTO);
 
         return "views/update_user";
     }
 
+    @PostMapping("/update/{id}")
+    private String updateUser(@PathVariable("id") long id, @Valid UpdateUserDTO updateUserDTO, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()){
+            updateUserDTO.setId(id);
+
+            return "views/update_user";
+        }
+
+        userService.updateUserEntity(updateUserDTO);
+//        model.addAttribute("userModel", updateUserDTO);
+
+        return "redirect:/users/all";
+    }
 
 }

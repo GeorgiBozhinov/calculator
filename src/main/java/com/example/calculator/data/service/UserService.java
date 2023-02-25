@@ -74,12 +74,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService  {
 
     private final UserRepository userRepository;
 
@@ -90,10 +89,6 @@ public class UserService {
     private final UserDetailsService appUserDetailsService;
 
     private final ModelMapper modelMapper;
-
-    //private final UserDetailsService appUserDetailsService;
-
-    //private String adminPass;
 
     public UserService(UserRepository userRepository,
                        UserRoleRepository userRoleRepository,
@@ -172,7 +167,7 @@ public class UserService {
 
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 
-        UserRoleEntity userRoleEntity = userRoleRepository.findByUserRole(UserRoleEnum.USER);
+        UserRoleEntity userRoleEntity = userRoleRepository.findByUserRole(UserRoleEnum.ADMIN);
 
         UserEntity newUser =
                 new UserEntity().
@@ -202,19 +197,53 @@ public class UserService {
     /**
      * @return all users and specific columns
      */
-    public List<UpdateUserDTO> getAllUsers(){
+    public List<UpdateUserDTO> getAllUsers() {
+
         List<UserEntity> usersEntityList = userRepository.findAll();
         List<UpdateUserDTO> usersDTOList = new ArrayList<>();
 
         usersEntityList.forEach(userEntity -> usersDTOList.add(modelMapper.map(userEntity, UpdateUserDTO.class)));
 
-        return  usersDTOList;
+        return usersDTOList;
     }
 
-    public Optional<UpdateUserDTO> getUser(Long userId){
+    public UpdateUserDTO getUser(Long userId) {
+
         Optional<UserEntity> userEntity = userRepository.findById(userId);
 
-        return Optional.ofNullable(modelMapper.map(userEntity, UpdateUserDTO.class));
+        UpdateUserDTO updateUserDTO = new UpdateUserDTO();
+
+        updateUserDTO.setId(userEntity.get().getId());
+        updateUserDTO.setUsername(userEntity.get().getUsername());
+        updateUserDTO.setFirstName(userEntity.get().getFirstName());
+        updateUserDTO.setLastName(userEntity.get().getLastName());
+
+        return updateUserDTO;
+    }
+
+    public void updateUserEntity(UpdateUserDTO updateUserDTO) {
+
+        UserEntity userEntity = userRepository.findById(updateUserDTO.getId()).orElse(null);
+
+        if ( userEntity != null ) {
+            userRepository.updateUser(updateUserDTO.getId(), updateUserDTO.getUsername(), updateUserDTO.getFirstName(), updateUserDTO.getLastName());
+        }
+
+//        if ( userEntity != null ) {
+//            userMapper.updateUserFromDTO(updateUserDTO, userEntity);
+//            userRepository.save(userEntity);
+//        }
+//        if(userEntity != null) {
+//            UserEntity user = new UserEntity();
+//
+//            user.setId(updateUserDTO.getId());
+//            user.setUsername(updateUserDTO.getUsername());
+//            user.setFirstName(updateUserDTO.getFirstName());
+//            user.setLastName(updateUserDTO.getLastName());
+//
+//            userRepository.save(user);
+//        }
 
     }
+
 }
