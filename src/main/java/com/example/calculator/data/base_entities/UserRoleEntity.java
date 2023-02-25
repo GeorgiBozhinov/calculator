@@ -17,8 +17,8 @@ public class UserRoleEntity {
     @Enumerated(EnumType.STRING)
     private UserRoleEnum userRole;
 
-    @ManyToMany(mappedBy = "userRoles")
-    private List<UserEntity> usersList;
+//    @ManyToMany(mappedBy = "userRoles")
+//    private List<UserEntity> usersList;
 
     public Long getId() {
         return id;

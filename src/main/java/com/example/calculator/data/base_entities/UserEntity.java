@@ -1,5 +1,4 @@
 package com.example.calculator.data.base_entities;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +6,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
-
 
     @Column(nullable = false)
     private String username;
@@ -20,14 +18,12 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String lastName;
 
-
-    //@ManyToMany(fetch = FetchType.EAGER)
-
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    //    @ManyToMany
+//    @JoinTable(
+//            name = "users_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public String getUsername() {
@@ -42,24 +38,29 @@ public class UserEntity extends BaseEntity {
     }
 
     public String getPassword() {
+
         return password;
     }
 
     public UserEntity setPassword(String password) {
+
         this.password = password;
         return this;
     }
 
     public List<UserRoleEntity> getUserRoles() {
+
         return userRoles;
     }
 
     public UserEntity setUserRoles(List<UserRoleEntity> userRoles) {
+
         this.userRoles = userRoles;
         return this;
     }
 
     public UserEntity addRole(UserRoleEntity userRole) {
+
         this.userRoles.add(userRole);
         return this;
     }
@@ -70,6 +71,7 @@ public class UserEntity extends BaseEntity {
     }
 
     public UserEntity setFirstName(String firstName) {
+
         this.firstName = firstName;
         return this;
     }
@@ -80,6 +82,7 @@ public class UserEntity extends BaseEntity {
     }
 
     public UserEntity setLastName(String lastName) {
+
         this.lastName = lastName;
         return this;
     }

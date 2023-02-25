@@ -115,6 +115,7 @@ public class UserService {
 
             adminRole = userRoleRepository.save(adminRole);
             moderatorRole = userRoleRepository.save(moderatorRole);
+            userRole = userRoleRepository.save(userRole);
 
             initAdmin(List.of(adminRole, moderatorRole));
             initModerator(List.of(moderatorRole));
@@ -170,7 +171,7 @@ public class UserService {
     }
 
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
-        
+
         UserRoleEntity userRoleEntity = userRoleRepository.findByUserRole(UserRoleEnum.USER);
 
         UserEntity newUser =

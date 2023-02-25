@@ -1,7 +1,7 @@
 let allEditButtons = $('.edit');
 let allEDeleteButtons = $('.delete');
 
-if (allEditButtons.length > 1) {
+if (allEditButtons.length >= 1) {
     allEditButtons.each(function (element) {
         let curr = $(this);
 
