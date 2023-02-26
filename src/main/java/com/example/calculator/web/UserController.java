@@ -70,8 +70,22 @@ public class UserController {
             return "views/update_user";
         }
 
-        userService.updateUserEntity(updateUserDTO);
-//        model.addAttribute("userModel", updateUserDTO);
+        userService.updateUser(updateUserDTO);
+
+        return "redirect:/users/all";
+    }
+
+
+    @GetMapping("/delete/{id}")
+    private String deleteUser(@PathVariable("id") long id, Model model) {
+
+//        if(bindingResult.hasErrors()){
+//            updateUserDTO.setId(id);
+//
+//            return "views/update_user";
+//        }
+
+        userService.deleteUser(id);
 
         return "redirect:/users/all";
     }

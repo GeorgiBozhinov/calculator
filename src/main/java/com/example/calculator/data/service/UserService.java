@@ -221,7 +221,7 @@ public class UserService  {
         return updateUserDTO;
     }
 
-    public void updateUserEntity(UpdateUserDTO updateUserDTO) {
+    public void updateUser(UpdateUserDTO updateUserDTO) {
 
         UserEntity userEntity = userRepository.findById(updateUserDTO.getId()).orElse(null);
 
@@ -229,21 +229,10 @@ public class UserService  {
             userRepository.updateUser(updateUserDTO.getId(), updateUserDTO.getUsername(), updateUserDTO.getFirstName(), updateUserDTO.getLastName());
         }
 
-//        if ( userEntity != null ) {
-//            userMapper.updateUserFromDTO(updateUserDTO, userEntity);
-//            userRepository.save(userEntity);
-//        }
-//        if(userEntity != null) {
-//            UserEntity user = new UserEntity();
-//
-//            user.setId(updateUserDTO.getId());
-//            user.setUsername(updateUserDTO.getUsername());
-//            user.setFirstName(updateUserDTO.getFirstName());
-//            user.setLastName(updateUserDTO.getLastName());
-//
-//            userRepository.save(user);
-//        }
+    }
 
+    public void deleteUser(long id){
+        userRepository.deleteUser(id);
     }
 
 }
