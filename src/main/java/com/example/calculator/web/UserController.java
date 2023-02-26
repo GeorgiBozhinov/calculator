@@ -1,5 +1,8 @@
 package com.example.calculator.web;
+import com.example.calculator.data.base_entities.UserRoleEntity;
+import com.example.calculator.data.enums.UserRoleEnum;
 import com.example.calculator.data.model.dto.UpdateUserDTO;
+import com.example.calculator.data.service.UserRoleService;
 import com.example.calculator.data.service.UserService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,10 +20,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserRoleService userRoleService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRoleService userRoleService) {
 
         this.userService = userService;
+        this.userRoleService = userRoleService;
     }
 
     @GetMapping("/login")
@@ -55,8 +61,14 @@ public class UserController {
     private String editUser(@PathVariable("id") long id, Model model) {
 
         UpdateUserDTO updateUserDTO = userService.getUser(id);
+        //List<UserRoleEntity> listEntity = updateUserDTO.getUserRoles();
+
+       // List<UserRoleEnum> listOfRoles = userRoleService.returnAllUserRoles();
+//
+
 
         model.addAttribute("userModel", updateUserDTO);
+       // model.addAttribute("listOfRoles", listOfRoles);
 
         return "views/update_user";
     }

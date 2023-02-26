@@ -11,6 +11,7 @@
                 <th scope="col">Потребителско име</th>
                 <th scope="col">Собствено име</th>
                 <th scope="col">Фамилия</th>
+                <th scope="col">Роли</th>
                 <th scope="col">Действия</th>
             </tr>
             </thead>
@@ -19,6 +20,9 @@
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
+                <td >
+                    <div th:if="${user.userRoles != null}" th:each="userRole : ${user.userRoles}" th:text="${userRole.getUserRole()}"></div>
+                </td>
                 <td>
                     <a th:href="@{/users/edit/{id}(id=${user.id})}">
                         <img th:src="@{/images/edit.png}"/>

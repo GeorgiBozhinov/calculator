@@ -1,4 +1,8 @@
 package com.example.calculator.data.model.dto;
+import com.example.calculator.data.base_entities.UserRoleEntity;
+
+import java.util.List;
+
 public class UpdateUserDTO {
 
     private long id;
@@ -8,6 +12,8 @@ public class UpdateUserDTO {
     private String firstName;
 
     private String lastName;
+
+    private List<UserRoleEntity> userRoles;
 
 
     public long getId() {
@@ -48,6 +54,16 @@ public class UpdateUserDTO {
     public void setLastName(String lastName) {
 
         this.lastName = lastName;
+    }
+
+    public List<UserRoleEntity> getUserRoles() {
+
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRoleEntity> userRoles) {
+
+        this.userRoles = userRoles;
     }
 
 }

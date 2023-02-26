@@ -20,7 +20,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String getIndex() {
-
+//        throw new RuntimeException("test exception");
         return "home/index";
     }
 

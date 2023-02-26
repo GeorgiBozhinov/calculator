@@ -217,6 +217,7 @@ public class UserService  {
         updateUserDTO.setUsername(userEntity.get().getUsername());
         updateUserDTO.setFirstName(userEntity.get().getFirstName());
         updateUserDTO.setLastName(userEntity.get().getLastName());
+        //updateUserDTO.setUserRoles(userEntity.get().getUserRoles());
 
         return updateUserDTO;
     }
@@ -234,5 +235,6 @@ public class UserService  {
     public void deleteUser(long id){
         userRepository.deleteUser(id);
     }
+
 
 }
