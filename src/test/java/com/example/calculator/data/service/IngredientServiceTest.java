@@ -66,6 +66,8 @@ public class IngredientServiceTest {
         IngredientEntity actual = ingredientService.checkIfExistSuchIngredient("Test");
 
         Assertions.assertEquals(actual.getIngredientName(), ingredientEntityTest.getIngredientName());
+
+
     }
 
 
@@ -98,17 +100,6 @@ public class IngredientServiceTest {
 
         listOfIngredients.add(ingredientEntityTest);
 
-//        this.ingredientEntityTest = new IngredientEntity() {{
-//            setIngredientName("Буркан");
-//            setIngredientType("jar");
-//            setPrice(24.0);
-//            setQuantity(1);
-//            setSize(0);
-//            setUnitName("кг");
-//            setId(2);
-//        }};
-//
-//        listOfIngredients.add(ingredientEntityTest);
 
         Mockito.when(this.mockedIngredientRepository.
                         findAllByIngredientType("wax"))
@@ -116,11 +107,9 @@ public class IngredientServiceTest {
 
         IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
 
-        List<IngredientEntity> expected = listOfIngredients;
+        List actual = ingredientService.findByIngredientType("wax");
 
-        List<IngredientEntity> actual = ingredientService.findByIngredientType("wax");
-
-        Assertions.assertEquals(2, expected.size());
+        Assertions.assertEquals(2, listOfIngredients.size());
         Assertions.assertEquals(2, actual.size());
     }
 

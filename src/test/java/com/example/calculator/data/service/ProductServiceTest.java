@@ -4,6 +4,7 @@ import com.example.calculator.data.base_entities.IngredientEntity;
 import com.example.calculator.data.base_entities.ProductEntity;
 import com.example.calculator.data.repository.IngredientRepository;
 import com.example.calculator.data.repository.ProductRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,13 +61,15 @@ public class ProductServiceTest {
             setId(1);
         }};
 
-        Mockito.when(this.mockedProductRepository.
-                        findById(productEntityTest.getId()))
-                .thenReturn(Optional.ofNullable(productEntityTest));
+        Mockito.when(this.mockedProductRepository.findByCandleName("Test"))
+                .thenReturn((List<ProductEntity>) this.productEntityTest);
 
+        ProductService productService =  new ProductService(this.mockedProductRepository, ingredientRepository, modelMapper);
         ProductEntity expected = this.productEntityTest;
 
-        List<ProductEntity> actual = toTest.checkIfExistSuchProduct("Test", "Буркан1");
+        List<ProductEntity> actual = productService.checkIfExistSuchProduct("Test", "Буркан1");
+
+        Assertions.assertEquals(actual.size(), 1);
     }
 
 }
