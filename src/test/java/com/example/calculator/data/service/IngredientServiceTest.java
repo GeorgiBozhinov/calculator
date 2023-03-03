@@ -15,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class IngredientServiceTest {
 
@@ -57,15 +59,15 @@ public class IngredientServiceTest {
             setQuantity(1);
         }};
 
-        Mockito.when(this.mockedIngredientRepository.
-                save(ingredientEntityTest)).thenReturn(ingredientEntityTest);
+        when(this.mockedIngredientRepository.
+                saveAndFlush(ingredientEntityTest)).thenReturn(ingredientEntityTest);
 
         //when
-        IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
+        //IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
 
-        IngredientEntity actual = ingredientService.checkIfExistSuchIngredient("Test");
+        IngredientEntity actual = toTest.checkIfExistSuchIngredient("Test");
 
-        Assertions.assertEquals(actual.getIngredientName(), ingredientEntityTest.getIngredientName());
+        Assertions.assertEquals(ingredientEntityTest.getIngredientName(), actual.getIngredientName());
 
 
     }
@@ -101,7 +103,7 @@ public class IngredientServiceTest {
         listOfIngredients.add(ingredientEntityTest);
 
 
-        Mockito.when(this.mockedIngredientRepository.
+        when(this.mockedIngredientRepository.
                         findAllByIngredientType("wax"))
                 .thenReturn(listOfIngredients);
 
@@ -126,7 +128,7 @@ public class IngredientServiceTest {
             setId(1);
         }};
 
-        Mockito.when(this.mockedIngredientRepository.
+        when(this.mockedIngredientRepository.
                         findByIngredientName("Восък"))
                 .thenReturn(this.ingredientEntityTest);
 
@@ -157,7 +159,7 @@ public class IngredientServiceTest {
             setUnitName("кг");
         }};
 
-        Mockito.when(this.mockedIngredientRepository.
+        when(this.mockedIngredientRepository.
                         findByIngredientName("Восък"))
                 .thenReturn(this.ingredientEntityTest);
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +47,7 @@ public class UserServiceTest {
                 mockUserRoleRepository,
                 mockPasswordEncoder,
                 mockAppUserDetailsService,
-                mockModelMapper
+                mockModelMapper = new ModelMapper()
         );
     }
 
@@ -89,7 +89,7 @@ public class UserServiceTest {
 
         when(mockUserRepository.findAll()).thenReturn(List.of(userEntity));
 
-        List<UpdateUserDTO> listOfUsersExpected = new ArrayList<>();
+        List<UpdateUserDTO> expected = new ArrayList<>();
 
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
         updateUserDTO.setUsername("test1");
@@ -97,14 +97,70 @@ public class UserServiceTest {
         updateUserDTO.setLastName("Testov");
         updateUserDTO.setUserRoles(List.of(userRole));
 
-        listOfUsersExpected.add(updateUserDTO);
+        expected.add(updateUserDTO);
 
         //act
-        List<UpdateUserDTO> listOfUsers = toTest.getAllUsers();
+        List<UpdateUserDTO> actual = toTest.getAllUsers();
+       // List<UpdateUserDTO> listOfUsers = List.of(this.mockModelMapper.map(userEntity, UpdateUserDTO.class));
 
         //assert            (expected, actual)
         //Assertions.assertEquals(listOfUsersExpected, listOfUsers);
-        Assertions.assertEquals(listOfUsers, listOfUsersExpected);
+
+        for ( int i = 0; i < actual.size(); i++ ) {
+            Assertions.assertEquals(expected.get(i).getUsername(), actual.get(i).getUsername());
+            Assertions.assertEquals(expected.get(i).getFirstName(), actual.get(i).getFirstName());
+            Assertions.assertEquals(expected.get(i).getLastName(), actual.get(i).getLastName());
+           // Assertions.assertEquals(listOfUsers.get(i).get(), listOfUsersExpected.get(i).getUsername());
+        }
+
+
+    }
+
+    @Test
+    void testGetUser_UserExist() {
+
+        UserRoleEntity userRole = new UserRoleEntity().setUserRole(UserRoleEnum.USER);
+        UserEntity userEntity = new UserEntity();
+
+        userEntity.setId(1);
+        userEntity.setUsername("test1");
+        userEntity.setFirstName("Test");
+        userEntity.setLastName("Testov");
+        userEntity.setPassword("testovam");
+        userEntity.setUserRoles(List.of(userRole));
+
+        when(mockUserRepository.findById(anyLong())).thenReturn(Optional.of(userEntity));
+
+        UpdateUserDTO expected = this.mockModelMapper.map(userEntity, UpdateUserDTO.class);
+        //act
+        UpdateUserDTO actual = toTest.getUser(1L);
+
+        //assert
+        Assertions.assertEquals(expected.getUsername(), actual.getUsername());
+        Assertions.assertEquals(expected.getFirstName(), actual.getFirstName());
+        Assertions.assertEquals(expected.getLastName(), actual.getLastName());
+        Assertions.assertEquals(expected.getId(), actual.getId());
+    }
+
+
+    @Test
+    void testUpdateUser_UserExist(){
+        UserRoleEntity userRole = new UserRoleEntity().setUserRole(UserRoleEnum.USER);
+        UserEntity userEntity = new UserEntity();
+
+        userEntity.setId(1);
+        userEntity.setUsername("test1");
+        userEntity.setFirstName("Test");
+        userEntity.setLastName("Testov");
+        userEntity.setPassword("testovam");
+        userEntity.setUserRoles(List.of(userRole));
+
+        when(mockUserRepository.findById(any())).thenReturn(Optional.of(userEntity));
+
+        //act
+        UpdateUserDTO updateUserDTO = mockModelMapper.map(userEntity, UpdateUserDTO.class);
+        updateUserDTO.setUsername("test_changed");
+        toTest.updateUser(updateUserDTO);
 
     }
 
