@@ -1,14 +1,12 @@
 package com.example.calculator.data.service;
-
-
 import com.example.calculator.data.base_entities.IngredientEntity;
+import com.example.calculator.data.model.dto.IngredientDTO;
 import com.example.calculator.data.repository.IngredientRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
@@ -37,7 +35,7 @@ public class IngredientServiceTest {
 
 
    /*   TO TEST
-    addIngredient()
+    addIngredient() - tested
     updateIngredient()
     deleteIngredientById()
     getAllIngredients() - tested
@@ -60,18 +58,43 @@ public class IngredientServiceTest {
         }};
 
         when(this.mockedIngredientRepository.
-                saveAndFlush(ingredientEntityTest)).thenReturn(ingredientEntityTest);
-
-        //when
-        //IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
+                findByIngredientName("Test")).thenReturn(ingredientEntityTest);
 
         IngredientEntity actual = toTest.checkIfExistSuchIngredient("Test");
 
         Assertions.assertEquals(ingredientEntityTest.getIngredientName(), actual.getIngredientName());
-
-
     }
 
+
+    @Test
+    public void updateIngredient_ChangeSomeParameter_SHouldUpdateItIfExist() {
+
+        this.ingredientEntityTest = new IngredientEntity() {{
+            setIngredientName("Test");
+            setIngredientType("wax");
+            setSize(0);
+            setPrice(11.0);
+            setUnitName("кг");
+            setQuantity(1);
+            setId(1L);
+        }};
+
+        IngredientDTO ingredientDTO = new IngredientDTO();
+        ingredientDTO.setIngredientName("Test");
+        ingredientDTO.setIngredientType("wax");
+        ingredientDTO.setSize(0);
+        ingredientDTO.setPrice(12.0);
+        ingredientDTO.setUnitName("кг");
+        ingredientDTO.setQuantity(1);
+        ingredientDTO.setId(1L);
+
+        when(this.mockedIngredientRepository.findByIngredientName("Test")).thenReturn(ingredientEntityTest);
+
+        toTest.updateIngredient(ingredientDTO, 1L);
+        IngredientEntity actual = toTest.checkIfExistSuchIngredient("Test");
+
+        Assertions.assertEquals(ingredientDTO.getIngredientName(), actual.getIngredientName());
+    }
 
     @Test
     public void checkFindByIngredientType_GetIngredientListWhenExist_ShouldReturnRecord() {
@@ -102,9 +125,8 @@ public class IngredientServiceTest {
 
         listOfIngredients.add(ingredientEntityTest);
 
-
         when(this.mockedIngredientRepository.
-                        findAllByIngredientType("wax"))
+                findAllByIngredientType("wax"))
                 .thenReturn(listOfIngredients);
 
         IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
@@ -129,7 +151,7 @@ public class IngredientServiceTest {
         }};
 
         when(this.mockedIngredientRepository.
-                        findByIngredientName("Восък"))
+                findByIngredientName("Восък"))
                 .thenReturn(this.ingredientEntityTest);
 
         IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
@@ -160,7 +182,7 @@ public class IngredientServiceTest {
         }};
 
         when(this.mockedIngredientRepository.
-                        findByIngredientName("Восък"))
+                findByIngredientName("Восък"))
                 .thenReturn(this.ingredientEntityTest);
 
         IngredientService ingredientService = new IngredientService(this.mockedIngredientRepository, modelMapper);
