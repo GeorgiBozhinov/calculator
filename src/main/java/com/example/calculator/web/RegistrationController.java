@@ -23,6 +23,7 @@ public class RegistrationController {
     private UserService userService;
 
     public RegistrationController(UserService userService) {
+
         this.userService = userService;
     }
 
@@ -33,7 +34,8 @@ public class RegistrationController {
     }
 
     @GetMapping("/register")
-    private String registerPage(){
+    private String registerPage() {
+
         return "auth/register";
     }
 
@@ -43,7 +45,7 @@ public class RegistrationController {
                             RedirectAttributes redirectAttributes,
                             HttpServletRequest request) {
 
-        if (userService.createUserIfNotExist(userRegisterDTO.getUsername())) {
+        if ( userService.createUserIfNotExist(userRegisterDTO.getUsername()) ) {
             ObjectError error = new ObjectError("globalError", USER_EXIST);
             bindingResult.addError(error);
 
@@ -57,7 +59,7 @@ public class RegistrationController {
         System.out.println("pass: " + userRegisterDTO.getPassword());
         System.out.println("conf-pass: " + userRegisterDTO.getConfirmPassword());
 
-        if(!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())){
+        if ( !userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword()) ) {
             ObjectError error = new ObjectError("globalError", PASSWORDS_DOES_NOT_MATCH);
             bindingResult.addError(error);
 
@@ -68,8 +70,7 @@ public class RegistrationController {
             return "redirect:/users/register";
         }
 
-
-        if ( bindingResult.hasErrors()) {
+        if ( bindingResult.hasErrors() ) {
             redirectAttributes.addFlashAttribute("userModel", userRegisterDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userModel",
                     bindingResult);
@@ -81,4 +82,5 @@ public class RegistrationController {
 
         return "redirect:/home";
     }
+
 }

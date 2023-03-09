@@ -1,5 +1,4 @@
 package com.example.calculator.web;
-
 import com.example.calculator.data.service.ProductService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,13 +25,13 @@ public class HomeController {
 
     @GetMapping("/home")
     public String getHome(Model model,
-                           @PageableDefault(
-                                   sort = "candleName",
-                                   direction = Sort.Direction.DESC,
-                                   page = 0,
-                                   size = 10) Pageable pageable){
+                          @PageableDefault(
+                                  sort = "candleName",
+                                  direction = Sort.Direction.DESC,
+                                  page = 0,
+                                  size = 10) Pageable pageable) {
 
-        if(!model.containsAttribute("products")){
+        if ( !model.containsAttribute("products") ) {
             model.addAttribute("products", productService.getAllProducts(pageable));
         }
 
@@ -67,5 +66,4 @@ public class HomeController {
 //
 //        return "home/home.html";
 //    }
-
 }
