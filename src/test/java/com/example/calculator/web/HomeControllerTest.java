@@ -6,29 +6,33 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class HomeControllerTest {
 
-
     @Autowired
     private MockMvc mockMvc;
 
+//    @Autowired
+//    MockHttpServletRequest request;
+
     @Test
-    void  testIndexPageShown() throws Exception {
+    void testIndexPageShown() throws Exception {
+
         mockMvc.perform(get("/")).
                 andExpect(status().isOk()).
                 andExpect(view().name("home/index"));
     }
 
     @Test
-    void  testHomePageShown() throws Exception {
+    void testHomePageShown() throws Exception {
+
         mockMvc.perform(get("/home")).
                 andExpect(status().isOk()).
-                andExpect(view().name("home/home"));
+                andExpect(view().name("home/home")).
+                andExpect(model().attributeExists("products"));
     }
 
 }
