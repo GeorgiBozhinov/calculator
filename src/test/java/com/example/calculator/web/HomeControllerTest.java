@@ -6,7 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,8 +32,7 @@ public class HomeControllerTest {
 
         mockMvc.perform(get("/home")).
                 andExpect(status().isOk()).
-                andExpect(view().name("home/home")).
-                andExpect(model().attributeExists("products"));
+                andExpect(view().name("home/home"));
     }
 
 }

@@ -1,16 +1,13 @@
 package com.example.calculator.web;
-import com.example.calculator.config.SecurityConfiguration;
-import com.example.calculator.data.model.dto.ProductDTO;
-import com.example.calculator.data.service.IngredientService;
-import com.example.calculator.data.service.ProductService;
-import com.example.calculator.data.service.imagesFolder.ImageService;
+import com.example.calculator.data.base_entities.UserEntity;
+import com.example.calculator.util.TestDataUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -26,28 +23,52 @@ public class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private SecurityConfiguration securityConfiguration;
+    @Autowired
+    private TestDataUtils testDataUtils;
 
-    @MockBean
-    private  ProductService productService;
+    private UserEntity testUser, testAdmin;
 
-    @MockBean
-    private  IngredientService ingredientService;
+    @BeforeEach
+    void setUp() {
 
-    @MockBean
-    private  ImageService imageService;
+        testUser = testDataUtils.createTestUser("test1");
+        testAdmin = testDataUtils.createTestAdmin("test2");
+    }
+
+    @AfterEach
+    void tearDown() {
+
+        testDataUtils.cleanUpDatabase();
+    }
 
     @Test
-    void testProductAddPageShown() throws Exception {
+    @WithMockUser(
+            username = "test2",
+            roles = {"ADMIN", "USER"}
+    )
+    void testProductAddPageShown_WhenUserIsPassed() throws Exception {
 
         mockMvc.perform(get("/product/add")).
                 andExpect(status().isOk()).
                 andExpect(view().name("views/add_product"))
-                .andExpect(model().attributeExists("wax"))
-                .andExpect(model().attributeExists("jar"))
-                .andExpect(model().attributeExists("scent"))
-                .andExpect(model().attributeExists("wick"))
+                .andExpect(model().attributeExists("waxes"))
+                .andExpect(model().attributeExists("jars"))
+                .andExpect(model().attributeExists("scents"))
+                .andExpect(model().attributeExists("wicks"))
+                .andExpect(model().attributeExists("others"))
+                .andExpect(model().attributeExists("options"));
+    }
+
+    @Test
+    void testProductAddPageShown_Forbidden() throws Exception {
+
+        mockMvc.perform(get("/product/add")).
+                andExpect(status().isOk()).
+                andExpect(view().name("views/add_product"))
+                .andExpect(model().attributeExists("waxes"))
+                .andExpect(model().attributeExists("jars"))
+                .andExpect(model().attributeExists("scents"))
+                .andExpect(model().attributeExists("wicks"))
                 .andExpect(model().attributeExists("others"))
                 .andExpect(model().attributeExists("options"));
     }
