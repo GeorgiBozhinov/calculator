@@ -19,7 +19,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String getIndex() {
-//        throw new RuntimeException("test exception");
+
         return "home/index";
     }
 
@@ -38,32 +38,4 @@ public class HomeController {
         return "home/home";
     }
 
-//    @GetMapping("/home")
-//    public String getHome(Model model,
-//                          @RequestParam("page") Optional<Integer> page,
-//                          @RequestParam("size") Optional<Integer> size) {
-//
-//        int currentPage = page.orElse(1);
-//        int pageSize = size.orElse(5);
-//
-//        Pageable pageable = PageRequest.of(0, 15);
-//
-//        if ( !model.containsAttribute("products") ) {
-//            model.addAttribute("products", productService.getAllProducts(pageable));
-//        }
-//
-//        return "home/home.html";
-//    }
-
-//    @GetMapping("/home")
-//    public String getHome(Model model) {
-//
-//        Pageable pageable = PageRequest.of(0, 15);
-//
-//        if ( !model.containsAttribute("products") ) {
-//            model.addAttribute("products", productService.getAllProducts(pageable));
-//        }
-//
-//        return "home/home.html";
-//    }
 }
