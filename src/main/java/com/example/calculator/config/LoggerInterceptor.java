@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoggerInterceptor  implements HandlerInterceptor {
+public class LoggerInterceptor implements HandlerInterceptor {
 
     private static Logger log = LoggerFactory.getLogger(LoggerInterceptor.class);
 
@@ -34,7 +34,8 @@ public class LoggerInterceptor  implements HandlerInterceptor {
     public void afterCompletion(
             HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        if (ex != null){
+
+        if ( ex != null ) {
             ex.printStackTrace();
         }
         log.info("[AFTERCOMPLETION][" + request + "][exception: " + ex + "]");

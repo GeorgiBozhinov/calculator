@@ -73,6 +73,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -101,6 +103,9 @@ public class UserService  {
         this.modelMapper = modelMapper;
     }
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+
     public void init() {
 
         if ( userRepository.count() == 0 && userRoleRepository.count() == 0 ) {
@@ -120,36 +125,39 @@ public class UserService  {
 
     private void initAdmin(List<UserRoleEntity> roles) {
 
-        UserEntity admin = new UserEntity().
-                setUserRoles(roles).
-                setUsername("admin_joro").
-                setFirstName("Test").
-                setLastName("Test").
-                setPassword(passwordEncoder.encode("Topsecret2%"));
+        UserEntity admin = new UserEntity()
+                .setUserRoles(roles)
+                .setUsername("admin_joro")
+                .setFirstName("Test")
+                .setLastName("Test")
+                .setPassword(passwordEncoder.encode("Topsecret2%"))
+                        .setCreationDate(dtf.format(now));
 
         userRepository.save(admin);
     }
 
     private void initModerator(List<UserRoleEntity> roles) {
 
-        UserEntity moderator = new UserEntity().
-                setUserRoles(roles).
-                setUsername("moderator_joro").
-                setFirstName("Test").
-                setLastName("Test").
-                setPassword(passwordEncoder.encode("Topsecret2%"));
+        UserEntity moderator = new UserEntity()
+                .setUserRoles(roles)
+                .setUsername("moderator_joro")
+                .setFirstName("Test")
+                .setLastName("Test")
+                .setPassword(passwordEncoder.encode("Topsecret2%"))
+                .setCreationDate(dtf.format(now));
 
         userRepository.save(moderator);
     }
 
     private void initUser(List<UserRoleEntity> roles) {
 
-        UserEntity user = new UserEntity().
-                setUserRoles(roles).
-                setUsername("user_joro").
-                setFirstName("Test").
-                setLastName("Test").
-                setPassword(passwordEncoder.encode("Topsecret2%"));
+        UserEntity user = new UserEntity()
+                .setUserRoles(roles)
+                .setUsername("user_joro")
+                .setFirstName("Test")
+                .setLastName("Test")
+                .setPassword(passwordEncoder.encode("Topsecret2%"))
+                .setCreationDate(dtf.format(now));
 
         userRepository.save(user);
     }
@@ -170,12 +178,13 @@ public class UserService  {
         UserRoleEntity userRoleEntity = userRoleRepository.findByUserRole(UserRoleEnum.ADMIN);
 
         UserEntity newUser =
-                new UserEntity().
-                        setUsername(userRegisterDTO.getUsername()).
-                        setFirstName(userRegisterDTO.getFirstName()).
-                        setLastName(userRegisterDTO.getLastName()).
-                        setUserRoles(List.of(userRoleEntity)).
-                        setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+                new UserEntity()
+                        .setUsername(userRegisterDTO.getUsername())
+                        .setFirstName(userRegisterDTO.getFirstName())
+                        .setLastName(userRegisterDTO.getLastName())
+                        .setUserRoles(List.of(userRoleEntity))
+                        .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()))
+                        .setCreationDate(dtf.format(now));
 
         userRepository.save(newUser);
 

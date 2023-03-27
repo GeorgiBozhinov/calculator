@@ -48,11 +48,22 @@ public class HomeControllerTest {
             username = "test2",
             roles = {"ADMIN", "USER"}
     )
-    void testHomePageShown() throws Exception {
+    void testHomePageShown_ShouldReturn200() throws Exception {
 
         mockMvc.perform(get("/home"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("home/home"));
+    }
+
+    @Test
+    @WithMockUser(
+            username = "test2",
+            roles = {"ADMIN", "USER"}
+    )
+    void testHomePageShown_ShouldReturn200_WhenNoAttributeIsReturned() throws Exception {
+
+        mockMvc.perform(get("/home"))
+                .andExpect(status().isOk());
     }
 
 }

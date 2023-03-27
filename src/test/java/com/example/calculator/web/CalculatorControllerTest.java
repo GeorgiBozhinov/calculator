@@ -60,7 +60,7 @@ public class CalculatorControllerTest {
     void testCalculatorPageShown_WhenUserIsNotPassed_302Expected() throws Exception {
 
         mockMvc.perform(get("/calc")).
-                andExpect(status().isOk()).
+                andExpect(status().is3xxRedirection()).
                 andExpect(view().name("views/calculator")).
                 andExpect(model().attributeExists("waxes")).
                 andExpect(model().attributeExists("jars")).

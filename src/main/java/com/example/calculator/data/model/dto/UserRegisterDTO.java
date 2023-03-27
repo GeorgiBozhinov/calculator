@@ -16,6 +16,12 @@ public class UserRegisterDTO {
     @NotNull
     private String lastName;
 
+    private String creationDate;
+
+    private Integer numberOfFailedLogins;
+
+    private String userStatus;
+
     public UserRegisterDTO() {
 
     }
@@ -68,6 +74,36 @@ public class UserRegisterDTO {
     public void setLastName(String lastName) {
 
         this.lastName = lastName;
+    }
+
+    public String getCreationDate() {
+
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+
+        this.creationDate = creationDate;
+    }
+
+    public Integer getNumberOfFailedLogins() {
+
+        return numberOfFailedLogins;
+    }
+
+    public void setNumberOfFailedLogins(Integer numberOfFailedLogins) {
+
+        this.numberOfFailedLogins = numberOfFailedLogins;
+    }
+
+    public String getUserStatus() {
+
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+
+        this.userStatus = userStatus;
     }
 
 }

@@ -18,6 +18,13 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
+    private String creationDate;
+
+    private Integer numberOfFailedLogins;
+
+    private String userStatus;
+
     //    @ManyToMany
 //    @JoinTable(
 //            name = "users_roles",
@@ -84,6 +91,39 @@ public class UserEntity extends BaseEntity {
     public UserEntity setLastName(String lastName) {
 
         this.lastName = lastName;
+        return this;
+    }
+
+    public String getCreationDate() {
+
+        return creationDate;
+    }
+
+    public UserEntity setCreationDate(String creationDate) {
+
+        this.creationDate = creationDate;
+        return this;
+    }
+
+    public Integer getNumberOfFailedLogins() {
+
+        return numberOfFailedLogins;
+    }
+
+    public UserEntity setNumberOfFailedLogins(Integer numberOfFailedLogins) {
+
+        this.numberOfFailedLogins = numberOfFailedLogins;
+        return this;
+    }
+
+    public String getUserStatus() {
+
+        return userStatus;
+    }
+
+    public UserEntity setUserStatus(String userStatus) {
+
+        this.userStatus = userStatus;
         return this;
     }
 
