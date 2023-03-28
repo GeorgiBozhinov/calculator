@@ -78,7 +78,7 @@ public class CalculatorService {
                 if(spllitted.length > 1){
                     ingredientEntity = ingredientRepository.findByIngredientName(spllitted[0]);
                     double temp = ingredientEntity.getPrice() * Integer.parseInt(spllitted[1]);
-                    System.out.println(spllitted[0] + ": " + temp);
+                    //System.out.println(spllitted[0] + ": " + temp);
                     finalPrice += temp;
                 }
             }
