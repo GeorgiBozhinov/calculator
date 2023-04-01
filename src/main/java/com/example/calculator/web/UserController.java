@@ -65,13 +65,16 @@ public class UserController {
 //
 
         model.addAttribute("userModel", updateUserDTO);
+        System.out.println("ID: " + updateUserDTO.getId());
         // model.addAttribute("listOfRoles", listOfRoles);
 
         return "views/update_user";
     }
 
-    @PostMapping("/update/{id}")
+   @PostMapping("/update/{id}")
+    //@PostMapping("/update")
     private String updateUser(@PathVariable("id") long id, @Valid UpdateUserDTO updateUserDTO, BindingResult bindingResult, Model model) {
+   // private String updateUser( @Valid UpdateUserDTO updateUserDTO, BindingResult bindingResult, Model model) {
 
         if ( bindingResult.hasErrors() ) {
             updateUserDTO.setId(id);

@@ -44,6 +44,9 @@ public class ComponentServiceTest {
         //act
         List<ComponentEntity> listOfComponents = toTest.getAllComponents();
 
+        System.out.println("Actual: " + listOfComponents.get(0).toString());
+        System.out.println("Expected: " + expectedList.get(0).toString());
+
         //assert
         Assertions.assertEquals(expectedList, listOfComponents);
 

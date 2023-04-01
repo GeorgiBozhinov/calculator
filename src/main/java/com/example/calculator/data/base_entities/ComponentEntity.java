@@ -35,4 +35,13 @@ public class ComponentEntity extends BaseEntity {
         this.componentNameEn = componentNameEn;
     }
 
+    @Override
+    public String toString() {
+
+        return "ComponentEntity{" +
+                "componentName='" + componentName + '\'' +
+                ", componentNameEn='" + componentNameEn + '\'' +
+                '}';
+    }
+
 }

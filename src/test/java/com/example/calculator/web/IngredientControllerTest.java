@@ -39,7 +39,7 @@ public class IngredientControllerTest {
 
     @Test
     @WithMockUser(
-            username = "test2",
+            username = "test1",
             roles = {"ADMIN", "USER"}
     )
     void testReturnIngredientPage_Return200Status() throws Exception {
@@ -53,7 +53,7 @@ public class IngredientControllerTest {
 
     @Test
     @WithMockUser(
-            username = "test2",
+            username = "test1",
             roles = {"ADMIN", "USER"}
     )
     void testReturnIngredientPage_Return200Status_WhenAttributesAlreadyExist() throws Exception {
@@ -66,7 +66,7 @@ public class IngredientControllerTest {
 
     @Test
     @WithMockUser(
-            username = "test2",
+            username = "test1",
             roles = {"ADMIN", "USER"}
     )
     void testAddIngredientMethod_ShouldReturn200OK() throws Exception {

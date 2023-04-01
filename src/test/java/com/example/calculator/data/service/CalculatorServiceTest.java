@@ -111,7 +111,7 @@ public class CalculatorServiceTest {
         when(mockIngredientRepository.findByIngredientName("Пръчка")).thenReturn(entityCinnamonOthers);
 
         Double actualPrice = toTest.calcPrice(calculatorDTO);
-       // System.out.println("actual price is: " + actualPrice);
+        System.out.println("actual price is: " + actualPrice);
 
         //assert
         Assertions.assertEquals(26.61, actualPrice);

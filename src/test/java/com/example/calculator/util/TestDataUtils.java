@@ -38,6 +38,7 @@ public class TestDataUtils {
                 .setUsername(username)
                 .setFirstName("Test")
                 .setLastName("Test")
+                .setCreationDate("2023-03-30 11:00:00")
                 .setUserRoles(userRoleRepository.findAll());
 
         return userRepository.save(admin);
@@ -51,6 +52,7 @@ public class TestDataUtils {
                 .setUsername(username)
                 .setFirstName("Test")
                 .setLastName("Test")
+                .setCreationDate("2023-03-30 11:00:00")
                 .setUserRoles(userRoleRepository.findAll());
 
         return userRepository.save(user);

@@ -1,6 +1,6 @@
 package com.example.calculator.web;
+
 import com.example.calculator.data.base_entities.ProductEntity;
-import com.example.calculator.data.model.dto.AdditionalIngredientsDTO;
 import com.example.calculator.data.model.dto.ProductDTO;
 import com.example.calculator.data.service.IngredientService;
 import com.example.calculator.data.service.ProductService;

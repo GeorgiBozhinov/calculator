@@ -228,6 +228,8 @@ public class UserService  {
         updateUserDTO.setLastName(userEntity.get().getLastName());
         //updateUserDTO.setUserRoles(userEntity.get().getUserRoles());
 
+        //UpdateUserDTO updateUserDTO = modelMapper.map(userEntity, UpdateUserDTO.class);
+
         return updateUserDTO;
     }
 

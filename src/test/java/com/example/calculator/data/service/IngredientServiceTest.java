@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class IngredientServiceTest {
 
     private IngredientService toTest;
 
+    @Mock
     private ModelMapper modelMapper;
 
     @BeforeEach
@@ -67,7 +69,7 @@ public class IngredientServiceTest {
 
 
     @Test
-    public void updateIngredient_ChangeSomeParameter_SHouldUpdateItIfExist() {
+    public void updateIngredient_ChangeSomeParameter_ShouldUpdateItIfExist() {
 
         this.ingredientEntityTest = new IngredientEntity() {{
             setIngredientName("Test");
@@ -88,12 +90,21 @@ public class IngredientServiceTest {
         ingredientDTO.setQuantity(1);
         ingredientDTO.setId(1L);
 
-        when(this.mockedIngredientRepository.findByIngredientName("Test")).thenReturn(ingredientEntityTest);
+        when(this.mockedIngredientRepository.findByIdCustom(1L)).thenReturn(ingredientEntityTest);
+
+        IngredientEntity ingredientEntity = modelMapper.map(ingredientDTO, IngredientEntity.class);
+        when(this.mockedIngredientRepository.saveAndFlush(ingredientEntity)).thenReturn(ingredientEntity);
 
         toTest.updateIngredient(ingredientDTO, 1L);
-        IngredientEntity actual = toTest.checkIfExistSuchIngredient("Test");
+        IngredientEntity actual = toTest.findIngredientById(1L);
 
         Assertions.assertEquals(ingredientDTO.getIngredientName(), actual.getIngredientName());
+        Assertions.assertEquals(ingredientDTO.getIngredientType(), actual.getIngredientType());
+        Assertions.assertEquals(ingredientDTO.getSize(), actual.getSize());
+        Assertions.assertEquals(ingredientDTO.getPrice(), actual.getPrice());
+        Assertions.assertEquals(ingredientDTO.getUnitName(), actual.getUnitName());
+        Assertions.assertEquals(ingredientDTO.getQuantity(), actual.getQuantity());
+        Assertions.assertEquals(ingredientDTO.getId(), actual.getId());
     }
 
     @Test
@@ -197,6 +208,34 @@ public class IngredientServiceTest {
         Assertions.assertEquals(expected.getQuantity(), actual.getQuantity());
         Assertions.assertEquals(expected.getUnitName(), actual.getUnitName());
         Assertions.assertEquals(expected.getSize(), actual.getSize());
+    }
+
+
+    @Test
+    public void testFindIngredientByID_ShouldReturnIt(){
+        this.ingredientEntityTest = new IngredientEntity() {{
+            setIngredientName("Восък");
+            setIngredientType("wax");
+            setPrice(23.0);
+            setQuantity(1);
+            setSize(0);
+            setUnitName("кг");
+            setId(1L);
+        }};
+
+        when(this.mockedIngredientRepository.
+                findByIdCustom(1L))
+                .thenReturn(this.ingredientEntityTest);
+
+        IngredientEntity actualIngredient = toTest.findIngredientById(1L);
+
+        Assertions.assertEquals(ingredientEntityTest.getIngredientName(), actualIngredient.getIngredientName());
+        Assertions.assertEquals(ingredientEntityTest.getIngredientType(), actualIngredient.getIngredientType());
+        Assertions.assertEquals(ingredientEntityTest.getPrice(), actualIngredient.getPrice());
+        Assertions.assertEquals(ingredientEntityTest.getQuantity(), actualIngredient.getQuantity());
+        Assertions.assertEquals(ingredientEntityTest.getSize(), actualIngredient.getSize());
+        Assertions.assertEquals(ingredientEntityTest.getUnitName(), actualIngredient.getUnitName());
+        Assertions.assertEquals(ingredientEntityTest.getId(), actualIngredient.getId());
     }
 
 }
