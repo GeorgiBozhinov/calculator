@@ -1,4 +1,5 @@
 package com.example.calculator.data.service;
+
 import com.example.calculator.data.base_entities.UnitEntity;
 import com.example.calculator.data.repository.UnitRepository;
 import org.junit.jupiter.api.Assertions;
@@ -42,6 +43,8 @@ public class UnitServiceTest {
         //act
         List<UnitEntity> listUnits = toTest.getAllUnits();
 
+        System.out.println("expected size: " + listOFUnits.size());
+        System.out.println("actual size: " + listUnits.size());
         //assert
         Assertions.assertEquals(listOFUnits, listUnits);
 
@@ -50,15 +53,17 @@ public class UnitServiceTest {
     @Test
     void testGetAllUnits_UnitsDoesNotExist(){
 
-        List<UnitEntity> listOFUnits = new ArrayList<>();
+        List<UnitEntity> expectedListOFUnits = new ArrayList<>();
 
-        when(mockUnitRepository.findAll()).thenReturn(listOFUnits);
+        when(mockUnitRepository.findAll()).thenReturn(expectedListOFUnits);
 
         //act
-        List<UnitEntity> listUnits = toTest.getAllUnits();
+        List<UnitEntity> actualListOfUnits = toTest.getAllUnits();
 
+        System.out.println("expected size: " + expectedListOFUnits.size());
+        System.out.println("actual size: " + actualListOfUnits.size());
         //assert
-        Assertions.assertEquals(listOFUnits, listUnits);
+        Assertions.assertEquals(expectedListOFUnits, actualListOfUnits);
     }
 
 

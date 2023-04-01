@@ -1,4 +1,5 @@
 package com.example.calculator.data.service;
+
 import com.example.calculator.data.base_entities.UserEntity;
 import com.example.calculator.data.base_entities.UserRoleEntity;
 import com.example.calculator.data.enums.UserRoleEnum;

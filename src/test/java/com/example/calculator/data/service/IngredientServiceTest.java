@@ -1,4 +1,5 @@
 package com.example.calculator.data.service;
+
 import com.example.calculator.data.base_entities.IngredientEntity;
 import com.example.calculator.data.model.dto.IngredientDTO;
 import com.example.calculator.data.repository.IngredientRepository;
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 

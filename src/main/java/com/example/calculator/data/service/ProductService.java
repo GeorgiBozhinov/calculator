@@ -64,7 +64,7 @@ public class ProductService {
     }
 
 
-    private Double calculatePrice(ProductDTO productDTO){
+    public Double calculatePrice(ProductDTO productDTO){
         String waxType = productDTO.getWaxType();  //repeating
         int waxQuantity = productDTO.getWaxQuantity(); //repeating
 

@@ -1,16 +1,11 @@
 package com.example.calculator.data.repository;
+
 import com.example.calculator.data.base_entities.IngredientEntity;
-import com.example.calculator.data.base_entities.UserEntity;
-import com.example.calculator.data.model.dto.IngredientDTO;
-import com.example.calculator.util.TestDataUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
