@@ -86,4 +86,17 @@ public class IngredientEntity extends BaseEntity {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+
+        return "IngredientEntity{" +
+                "ingredientType='" + ingredientType + '\'' +
+                ", ingredientName='" + ingredientName + '\'' +
+                ", quantity=" + quantity +
+                ", size=" + size +
+                ", unitName='" + unitName + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
 }

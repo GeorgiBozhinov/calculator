@@ -149,4 +149,21 @@ public class ProductEntity extends BaseEntity {
         this.imageName = imageName;
     }
 
+    @Override
+    public String toString() {
+
+        return "ProductEntity{" +
+                "candleName='" + candleName + '\'' +
+                ", waxType='" + waxType + '\'' +
+                ", candleJar='" + candleJar + '\'' +
+                ", waxQuantity=" + waxQuantity +
+                ", candleWick='" + candleWick + '\'' +
+                ", wickSize=" + wickSize +
+                ", scentType='" + scentType + '\'' +
+                ", scentQuantity=" + scentQuantity +
+                ", price=" + price +
+                ", imageName='" + imageName + '\'' +
+                '}';
+    }
+
 }

@@ -56,8 +56,6 @@ public class ProductService {
 
     public Page<ProductEntity> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
-
-
     }
 
 
