@@ -83,16 +83,15 @@ public class ProductController {
                              RedirectAttributes redirectAttributes,
                              @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        //imageService.changeImageBackground();
-        String test= "";
-
         if ( bindingResult.hasErrors() ) {
+            System.out.println("has errors");
             addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);
 
             return "redirect:/product/add";
         }
 
         if ( imageService.checkImageSize(multipartFile.getSize()) ) {
+            System.out.println("image size");
             ObjectError error = new ObjectError("globalError", IMAGE_SIZE);
             bindingResult.addError(error);
             addFlashAttribute(redirectAttributes, "productModel",  productDTO,  bindingResult);
@@ -103,6 +102,7 @@ public class ProductController {
         List<ProductEntity> productEntityList = productService.checkIfExistSuchProduct(productDTO.getCandleName(), productDTO.getCandleJar());
 
         if ( productEntityList.isEmpty() ) {
+            System.out.println("product list is empty");
             String fileName = "/images/uploads/" + multipartFile.getOriginalFilename();
 
             productService.saveUploadedFile(multipartFile);

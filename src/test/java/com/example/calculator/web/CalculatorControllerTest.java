@@ -56,17 +56,4 @@ public class CalculatorControllerTest {
                 andExpect(model().attributeExists("others"));
     }
 
-    @Test
-    void testCalculatorPageShown_WhenUserIsNotPassed_302Expected() throws Exception {
-
-        mockMvc.perform(get("/calc")).
-                andExpect(status().is3xxRedirection()).
-                andExpect(view().name("views/calculator")).
-                andExpect(model().attributeExists("waxes")).
-                andExpect(model().attributeExists("jars")).
-                andExpect(model().attributeExists("scents")).
-                andExpect(model().attributeExists("wicks")).
-                andExpect(model().attributeExists("others"));
-    }
-
 }

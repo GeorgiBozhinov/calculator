@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,7 +63,6 @@ public class IngredientControllerTest {
         mockMvc.perform(get("/ingredient/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("views/add_ingredient"));
-
     }
 
     @Test
@@ -72,12 +73,12 @@ public class IngredientControllerTest {
     void testAddIngredientMethod_ShouldReturn200OK() throws Exception {
 
         mockMvc.perform(post("/ingredient/add")
-                .param("ingredientType", "wax")
-                .param("ingredientName", "testing01")
-                .param("quantity", "1")
-                .param("size", "0")
-                .param("unitName", "кг")
-                .param("price", "10.0"))
+                        .param("ingredientType", "wax")
+                        .param("ingredientName", "testing01")
+                        .param("quantity", "1")
+                        .param("size", "0")
+                        .param("unitName", "кг")
+                        .param("price", "10.0"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(header().string("Location", "/ingredient/add"));
 
@@ -96,15 +97,24 @@ public class IngredientControllerTest {
             roles = {"ADMIN", "USER"}
     )
     void testLoadingSuccessPage_ShouldReturn200() throws Exception {
-        mockMvc.perform(get("/ingredient/succ"))
+
+//        ProductDTO productDTO = new ProductDTO();
+//        productDTO.setScentType("lemon");
+//        productDTO.setWaxType("was");
+//        productDTO.setWaxQuantity(200);
+//        productDTO.setScentQuantity(10.0);
+//        productDTO.setCandleWick("regular");
+//        productDTO.setCandleJar("ddd");
+//        productDTO.setCandleName("one");
+//        productDTO.setWickSize(3);
+
+        mockMvc.perform(get("/ingredient/succ")
+                        .param("ingredientName", "test")
+                )
                 .andExpect(status().isOk())
                 .andExpect(view().name("views/result_ingredient"))
-                .andExpect(model().attributeExists("ingredientType"))
-                .andExpect(model().attributeExists("ingredientName"))
-                .andExpect(model().attributeExists("quantity"))
-                .andExpect(model().attributeExists("size"))
-                .andExpect(model().attributeExists("unitName"))
-                .andExpect(model().attributeExists("price"));
+                .andExpect(model().attribute("ingredientAddedModel", hasProperty("ingredientName", is("test"))
+                ));
     }
 
 }

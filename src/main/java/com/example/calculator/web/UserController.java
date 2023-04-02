@@ -59,14 +59,7 @@ public class UserController {
     private String editUser(@PathVariable("id") long id, Model model) {
 
         UpdateUserDTO updateUserDTO = userService.getUser(id);
-        //List<UserRoleEntity> listEntity = updateUserDTO.getUserRoles();
-
-        // List<UserRoleEnum> listOfRoles = userRoleService.returnAllUserRoles();
-//
-
         model.addAttribute("userModel", updateUserDTO);
-        System.out.println("ID: " + updateUserDTO.getId());
-        // model.addAttribute("listOfRoles", listOfRoles);
 
         return "views/update_user";
     }
@@ -89,13 +82,6 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     private String deleteUser(@PathVariable("id") long id, Model model) {
-
-//        if(bindingResult.hasErrors()){
-//            updateUserDTO.setId(id);
-//
-//            return "views/update_user";
-//        }
-
         userService.deleteUser(id);
 
         return "redirect:/users/all";

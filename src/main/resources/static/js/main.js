@@ -1,3 +1,6 @@
+const inputField = document.querySelector('#input-search');
+
+
 function showMessage(message) {
 
     Swal.fire({
@@ -90,41 +93,81 @@ if (spanElLength >= 1) {
 
 }
 
-if (document.querySelector('#form')) {
-    const form = document.querySelector('#form')
 
-    form.addEventListener('submit', event => {
-        event.preventDefault();
+// if (document.querySelector('#form')) {
+//     const form = document.querySelector('#form')
+//
+//     form.addEventListener('submit', event => {
+//         event.preventDefault();
+//
+//         const searchingText = inputField.value.toLowerCase();
+//
+//         const pElements = document.querySelectorAll('.container .p-prod');
+//
+//         pElements.forEach(el => {
+//             const parentElement = el.parentElement;
+//
+//             if (searchingText !== '') {
+//                 const productName = el.textContent.toLowerCase();
+//
+//                 if (!productName.includes(searchingText)) {
+//                     parentElement.classList.add('hidden');
+//                 } else {
+//                     parentElement.classList.remove('hidden');
+//                 }
+//
+//             } else if (parentElement.classList.contains('hidden')) {
+//                 parentElement.classList.remove('hidden');
+//             }
+//
+//             console.log(el.textContent);
+//
+//         });
+//
+//     });
+//
+// }
 
-        if (document.querySelector('#input-search')) {
-            const inputField = document.querySelector('#input-search');
-            const searchingText = inputField.value.toLowerCase();
 
-            const pElements = document.querySelectorAll('.container .p-prod');
+inputField.addEventListener('input', e => {
+    const inputValue = inputField.value.toLowerCase();
 
-            pElements.forEach(el => {
-                const parentElement = el.parentElement;
+    const pElements = document.querySelectorAll('.container .p-prod');
 
-                if (searchingText !== '') {
-                    const productName = el.textContent.toLowerCase();
+    let sRegex = "";
+    let sFilter = inputValue;
+    let addLetter = '';
 
-                    if (!productName.includes(searchingText)) {
-                        parentElement.classList.add('hidden');
-                    } else {
-                        parentElement.classList.remove('hidden');
-                    }
+    if (inputValue === '') {
+        sRegex = '';
 
-                } else if (parentElement.classList.contains('hidden')) {
-                    parentElement.classList.remove('hidden');
-                }
+    } else {
+        let r = (inputValue !== '' ? inputValue.replace(/([.\[\]\(\)])/g, '\\$1') : '.');
 
-                console.log(el.textContent);
-
-            });
-
+        if (typeof r === 'string') {
+            r = r.toLowerCase();
         }
 
-    });
+        sRegex = new RegExp(r);
+    }
 
-}
+    let isMatched = false;
+
+    //When passing the value, convert name and address to lowerCase
+    for (let i = 0; i < pElements.length; i++) {
+        const currElement = pElements[i];
+        const parentElement = currElement.parentElement;
+        const productName = currElement.textContent.toLowerCase();
+
+        if (sFilter === '' || sRegex.test(productName.toLowerCase())) {
+            parentElement.classList.remove('hidden');
+            isMatched = true;
+
+        } else {
+            parentElement.classList.add('hidden');
+        }
+
+    }
+
+});
 
