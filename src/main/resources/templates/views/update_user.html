@@ -57,11 +57,14 @@
                         class="form-control"
                         required>
                     <option value="">- Избери роля -</option>
-                    <option
-                            th:each="role : ${T(com.example.calculator.data.enums.UserRoleEnum).values()}"
-                            th:text="${role.displayText}"
-                            th:value="${role}">
-                    </option>
+<!--                    <option-->
+<!--                            th:each="role : ${T(com.example.calculator.data.enums.UserRoleEnum).values()}"-->
+<!--                            th:text="${role.displayText}"-->
+<!--                            th:value="${role}">-->
+<!--                    </option>-->
+                    <option th:value="'User'" th:text="USER"></option>
+                    <option th:value="'Moderator'" th:text="MODERATOR"></option>
+                    <option th:value="'Admin'" th:text="ADMIN"></option>
                 </select>
                 <p class="invalid-feedback errors alert alert-danger">
                     Полето е празно.

@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping("/all")
     private String allUsers(Model model) {
 
-        List<UpdateUserDTO> tes = userService.getAllUsers();
+        //List<UpdateUserDTO> tes = userService.getAllUsers();
 
         model.addAttribute("users", userService.getAllUsers());
 
